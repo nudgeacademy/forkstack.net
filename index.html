@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ForkStack - The full-stack restaurant OS</title>
+<meta name="description" content="ForkStack unifies POS and ERP into one real-time platform for restaurants, cafes and chains.">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav" id="top">
+  <div class="nav__pill">
+    <a href="#hero" class="nav__brand" aria-label="ForkStack home">
+      <img src="assets/logo.png" alt="ForkStack logo" class="nav__logo">
+      <span class="nav__wordmark">ForkStack</span>
+    </a>
+
+    <nav class="nav__links" id="navLinks" aria-label="Primary">
+      <a href="#products">Products</a>
+      <a href="#features">Features</a>
+      <a href="#why">Why ForkStack</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+    <div class="nav__actions">
+      <button onclick="document.getElementById('sales-modal').showModal()" class="btn btn--primary nav__cta">Start free trial</button>
+    </div>
+
+    <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMobile">
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="nav__mobile" id="navMobile">
+      <a href="#products">Products</a>
+      <a href="#features">Features</a>
+      <a href="#why">Why ForkStack</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <hr>
+      <button onclick="document.getElementById('sales-modal').showModal()" class="btn btn--primary btn--block">Start free trial</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="container hero__inner">
+      <p class="eyebrow reveal">POS + ERP, unified</p>
+      <h1 class="reveal">One stack to run<br>your restaurant.</h1>
+      <p class="hero__sub reveal">Counter POS, kitchen displays, inventory, payroll and analytics - all real-time, one login.</p>
+      <div class="hero__ctas reveal">
+        <button onclick="document.getElementById('sales-modal').showModal()" class="btn btn--primary btn--lg">Start 14-day free trial</button>
+        <a href="#pricing" class="btn btn--outline btn--lg">See pricing</a>
+      </div>
+      <p class="hero__fineprint reveal">Free 14 days · No credit card · 2 outlets included</p>
+
+      <div class="mockup reveal" role="img" aria-label="ForkStack dashboard">
+        <div class="mockup__frame">
+          <div class="mockup__titlebar">
+            <span class="dot dot--r"></span><span class="dot dot--y"></span><span class="dot dot--g"></span>
+          </div>
+          <div class="mockup__body">
+            <aside class="mockup__sidebar">
+              <div class="mockup__logo-stripe"></div>
+              <div class="mockup__stripe"></div>
+              <div class="mockup__stripe mockup__stripe--active"></div>
+              <div class="mockup__stripe"></div>
+              <div class="mockup__stripe"></div>
+            </aside>
+            <div class="mockup__main">
+              <div class="mockup__header">
+                <div class="mockup__header-title"></div>
+                <div class="mockup__header-pill"></div>
+              </div>
+              <div class="mockup__stats">
+                <div class="mockup__stat">
+                  <span class="mockup__stat-label">Sales</span>
+                  <span class="mockup__stat-value">₹48,250</span>
+                </div>
+                <div class="mockup__stat">
+                  <span class="mockup__stat-label">Tables</span>
+                  <span class="mockup__stat-value">12</span>
+                </div>
+                <div class="mockup__stat">
+                  <span class="mockup__stat-label">KOT Queue</span>
+                  <span class="mockup__stat-value">7</span>
+                </div>
+              </div>
+              <div class="mockup__chart">
+                <div class="mockup__bar" style="--h:38%"></div>
+                <div class="mockup__bar" style="--h:62%"></div>
+                <div class="mockup__bar" style="--h:48%"></div>
+                <div class="mockup__bar" style="--h:80%"></div>
+                <div class="mockup__bar" style="--h:56%"></div>
+                <div class="mockup__bar" style="--h:70%"></div>
+                <div class="mockup__bar" style="--h:90%"></div>
+                <div class="mockup__bar" style="--h:64%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <section class="strip">
+    <div class="container strip__inner reveal">
+      <span class="strip__label">Built for</span>
+      <div class="strip__chips">
+        <span class="chip">Cafés</span>
+        <span class="chip">Cloud kitchens</span>
+        <span class="chip">Dine-in</span>
+        <span class="chip">Multi-outlet chains</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="section" id="products">
+    <div class="container">
+      <div class="section__header">
+        <p class="eyebrow reveal">The Suite</p>
+        <h2 class="reveal">Two products. One platform.</h2>
+        <p class="section__sub reveal">Start with either, add the other anytime - they share one database.</p>
+      </div>
+
+      <div class="products-grid">
+        <article class="product-card reveal">
+          <div class="product-card__mockup">
+            <div class="product-card__screen">
+              <div class="product-card__titlebar">
+                <span class="dot dot--r"></span><span class="dot dot--y"></span><span class="dot dot--g"></span>
+              </div>
+              <div class="pos-ui">
+                <div class="pos-ui__menu">
+                  <div class="pos-ui__item pos-ui__item--active"></div>
+                  <div class="pos-ui__item"></div>
+                  <div class="pos-ui__item"></div>
+                  <div class="pos-ui__item"></div>
+                  <div class="pos-ui__item pos-ui__item--active"></div>
+                  <div class="pos-ui__item"></div>
+                  <div class="pos-ui__item"></div>
+                  <div class="pos-ui__item"></div>
+                  <div class="pos-ui__item"></div>
+                </div>
+                <div class="pos-ui__cart">
+                  <div class="pos-ui__line"></div>
+                  <div class="pos-ui__line"></div>
+                  <div class="pos-ui__line"></div>
+                  <div class="pos-ui__total"></div>
+                  <div class="pos-ui__pay">PAY</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="product-card__info">
+            <h3>ForkStack POS</h3>
+            <p class="card__tag">Front of house, full speed.</p>
+            <p>Counter billing, table management, KOT displays and thermal printing - works on any browser.</p>
+          </div>
+        </article>
+
+        <article class="product-card reveal">
+          <div class="product-card__mockup">
+            <div class="product-card__screen">
+              <div class="product-card__titlebar">
+                <span class="dot dot--r"></span><span class="dot dot--y"></span><span class="dot dot--g"></span>
+              </div>
+              <div class="erp-ui">
+                <div class="erp-ui__nav">
+                  <div class="erp-ui__nav-dot erp-ui__nav-dot--active"></div>
+                  <div class="erp-ui__nav-dot"></div>
+                  <div class="erp-ui__nav-dot"></div>
+                  <div class="erp-ui__nav-dot"></div>
+                </div>
+                <div class="erp-ui__content">
+                  <div class="erp-ui__header">
+                    <div class="erp-ui__h-bar" style="width:80px"></div>
+                    <div class="erp-ui__h-pill"></div>
+                  </div>
+                  <div class="erp-ui__stats">
+                    <div class="erp-ui__stat"></div>
+                    <div class="erp-ui__stat"></div>
+                    <div class="erp-ui__stat"></div>
+                  </div>
+                  <div class="erp-ui__body">
+                    <div class="erp-ui__chart">
+                      <div class="erp-ui__bar" style="height:30%"></div>
+                      <div class="erp-ui__bar" style="height:55%"></div>
+                      <div class="erp-ui__bar" style="height:42%"></div>
+                      <div class="erp-ui__bar" style="height:75%"></div>
+                      <div class="erp-ui__bar" style="height:60%"></div>
+                      <div class="erp-ui__bar" style="height:90%"></div>
+                    </div>
+                    <div class="erp-ui__table">
+                      <div class="erp-ui__t-row"></div>
+                      <div class="erp-ui__t-row"></div>
+                      <div class="erp-ui__t-row"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="product-card__info">
+            <h3>ForkStack ERP</h3>
+            <p class="card__tag">Back office, actually connected.</p>
+            <p>Inventory, recipes, purchases, HR, payroll and reports - every number live from the POS.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section section--alt" id="features">
+    <div class="container">
+      <div class="section__header">
+        <p class="eyebrow reveal">Capabilities</p>
+        <h2 class="reveal">Everything you need, nothing you don't.</h2>
+      </div>
+
+      <div class="features-grid">
+        <article class="feature-card reveal">
+          <div class="feature-card__icon">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+          </div>
+          <h3>Real-time sync</h3>
+          <p>Orders, stock and reports push live to every device - no refresh.</p>
+        </article>
+        <article class="feature-card reveal">
+          <div class="feature-card__icon">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+          </div>
+          <h3>Multi-outlet inventory</h3>
+          <p>Track stock across outlets and warehouses with transfer alerts.</p>
+        </article>
+        <article class="feature-card reveal">
+          <div class="feature-card__icon">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          </div>
+          <h3>Recipes &amp; production</h3>
+          <p>Define recipes, plan production, auto-deplete ingredients on sale.</p>
+        </article>
+        <article class="feature-card reveal">
+          <div class="feature-card__icon">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+          </div>
+          <h3>Thermal printing</h3>
+          <p>ESC/POS network printing - bills and KOTs from any browser.</p>
+        </article>
+        <article class="feature-card reveal">
+          <div class="feature-card__icon">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
+          </div>
+          <h3>Offline-ready</h3>
+          <p>Local servers keep billing alive, sync when back online.</p>
+        </article>
+        <article class="feature-card reveal">
+          <div class="feature-card__icon">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          </div>
+          <h3>Reports &amp; analytics</h3>
+          <p>Sales, waste, expenses by outlet, item and staff - always current, always exportable.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY FORKSTACK -->
+  <section class="section" id="why">
+    <div class="container">
+      <div class="section__header">
+        <p class="eyebrow reveal">Why ForkStack</p>
+        <h2 class="reveal">Built for speed, scale and simplicity.</h2>
+      </div>
+
+      <div class="stats-grid reveal">
+        <div class="stat-card">
+          <div class="stat-card__number">1</div>
+          <div class="stat-card__label">Login for POS + ERP</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">&lt;1s</div>
+          <div class="stat-card__label">Real-time data sync</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">∞</div>
+          <div class="stat-card__label">Outlets scalable</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section section--alt" id="pricing">
+    <div class="container">
+      <div class="section__header">
+        <p class="eyebrow reveal">Simple pricing</p>
+        <h2 class="reveal">Pick your stack.</h2>
+        <p class="section__sub reveal">14-day free trial. No credit card.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <article class="price-card reveal">
+          <h3>POS Starter</h3>
+          <p class="price-card__tag">Front-of-house essentials.</p>
+          <div class="price-card__costs">
+            <div class="cost-row">
+              <span class="cost-label">Subscription</span>
+              <span class="cost-value">₹1,999<small>/outlet/mo</small></span>
+            </div>
+            <div class="cost-row">
+              <span class="cost-label">One-time setup</span>
+              <span class="cost-value">₹15,000</span>
+            </div>
+          </div>
+          <ul class="price-card__list">
+            <li>Touchscreen POS &amp; table billing</li>
+            <li>KOT kitchen displays</li>
+            <li>Manager dashboard</li>
+            <li>Android companion app</li>
+            <li>Thermal printing</li>
+            <li>Up to 15 staff per outlet</li>
+          </ul>
+          <button onclick="document.getElementById('sales-modal').showModal()" class="btn btn--outline btn--block">Talk to sales</button>
+        </article>
+
+        <article class="price-card price-card--featured reveal">
+          <span class="badge">MOST POPULAR</span>
+          <h3>ERP Pro</h3>
+          <p class="price-card__tag">POS + full back office.</p>
+          <div class="price-card__costs">
+            <div class="cost-row">
+              <span class="cost-label">Subscription</span>
+              <span class="cost-value">₹4,999<small>/month</small></span>
+            </div>
+            <div class="cost-row">
+              <span class="cost-label">One-time setup</span>
+              <span class="cost-value">₹45,000</span>
+            </div>
+          </div>
+          <ul class="price-card__list">
+            <li>Everything in POS Starter</li>
+            <li>Multi-outlet inventory</li>
+            <li>Recipes &amp; production</li>
+            <li>HR, attendance &amp; payroll</li>
+            <li>Purchases &amp; expenses</li>
+            <li>Up to 5 outlets, 50 staff</li>
+          </ul>
+          <button onclick="document.getElementById('sales-modal').showModal()" class="btn btn--primary btn--block">Talk to sales</button>
+        </article>
+
+        <article class="price-card reveal">
+          <h3>Enterprise</h3>
+          <p class="price-card__tag">For chains and franchises.</p>
+          <div class="price-card__costs">
+            <div class="cost-row">
+              <span class="cost-label">Subscription</span>
+              <span class="cost-value">Custom</span>
+            </div>
+            <div class="cost-row">
+              <span class="cost-label">One-time setup</span>
+              <span class="cost-value">Custom</span>
+            </div>
+          </div>
+          <ul class="price-card__list">
+            <li>Unlimited outlets &amp; staff</li>
+            <li>Warehouses &amp; central kitchens</li>
+            <li>Offline edge servers</li>
+            <li>Priority onboarding</li>
+            <li>Custom SLA</li>
+          </ul>
+          <button onclick="document.getElementById('sales-modal').showModal()" class="btn btn--outline btn--block">Talk to sales</button>
+        </article>
+      </div>
+
+      <p class="pricing__note reveal">Introductory pricing, billed per org. Taxes extra.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section__header">
+        <p class="eyebrow reveal">FAQ</p>
+        <h2 class="reveal">Common questions.</h2>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item reveal">
+          <summary>How does the free trial work?<span class="faq-icon" aria-hidden="true"></span></summary>
+          <p>14 days, full access, no credit card. Your data stays when you pick a plan.</p>
+        </details>
+        <details class="faq-item reveal">
+          <summary>Do I need special hardware?<span class="faq-icon" aria-hidden="true"></span></summary>
+          <p>No. Any modern browser + standard ESC/POS thermal printers.</p>
+        </details>
+        <details class="faq-item reveal">
+          <summary>Does it work offline?<span class="faq-icon" aria-hidden="true"></span></summary>
+          <p>Yes. Local edge servers keep billing alive and auto-sync later.</p>
+        </details>
+        <details class="faq-item reveal">
+          <summary>Can I buy just the POS or just the ERP?<span class="faq-icon" aria-hidden="true"></span></summary>
+          <p>Yes - they're licensed independently and share one account.</p>
+        </details>
+        <details class="faq-item reveal">
+          <summary>Is my data safe?<span class="faq-icon" aria-hidden="true"></span></summary>
+          <p>Strict tenant isolation, role-based access, encrypted sessions.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="cta-band">
+    <div class="container cta-band__inner reveal">
+      <h2>Ready to run a tighter restaurant?</h2>
+      <p>Set up your first outlet in minutes.</p>
+      <a href="#" class="btn btn--primary btn--lg">Start free trial</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <a href="#hero" class="nav__brand" aria-label="ForkStack home">
+        <img src="assets/logo.png" alt="ForkStack logo" class="nav__logo">
+        <span class="nav__wordmark">ForkStack</span>
+      </a>
+      <p class="footer__blurb">The full-stack restaurant OS.</p>
+    </div>
+
+    <div class="footer__col">
+      <h4>Product</h4>
+      <a href="#products">ForkStack POS</a>
+      <a href="#products">ForkStack ERP</a>
+      <a href="#pricing">Pricing</a>
+    </div>
+
+    <div class="footer__col">
+      <h4>Company</h4>
+      <a href="#why">About</a>
+      <a href="#" onclick="document.getElementById('sales-modal').showModal(); return false;">Contact</a>
+      <a href="mailto:careers@forkstack.com">Careers</a>
+    </div>
+
+    <div class="footer__col">
+      <h4>Resources</h4>
+      <a href="#features">Docs</a>
+      <a href="#faq">Support</a>
+      <a href="#" onclick="alert('All systems operational. ForkStack is running smoothly.'); return false;">Status</a>
+    </div>
+  </div>
+
+  <div class="container footer__bottom">
+    <p>&copy; 2026 ForkStack. All rights reserved.</p>
+  </div>
+</footer>
+
+  <!-- Sales Modal -->
+  <dialog id="sales-modal" class="modal">
+    <div class="modal__inner">
+      <div class="modal__header">
+        <h3>Talk to sales</h3>
+        <button onclick="document.getElementById('sales-modal').close()" class="modal__close">&times;</button>
+      </div>
+      <form action="https://formsubmit.co/asifalikp3210@gmail.com" method="POST" class="modal__form">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_subject" value="New ForkStack Sales Inquiry!">
+        <label>
+          <span>Name</span>
+          <input type="text" name="name" required placeholder="Your name">
+        </label>
+        <label>
+          <span>Email</span>
+          <input type="email" name="email" required placeholder="name@company.com">
+        </label>
+        <label>
+          <span>Phone Number</span>
+          <input type="tel" name="phone" required placeholder="+91 99999 99999">
+        </label>
+        <label>
+          <span>Number of Outlets</span>
+          <select name="outlets" required>
+            <option value="" disabled selected>Select an option</option>
+            <option value="1">1 (Single Outlet)</option>
+            <option value="2-5">2 to 5</option>
+            <option value="6-20">6 to 20</option>
+            <option value="21+">21 or more</option>
+          </select>
+        </label>
+        <label>
+          <span>Message</span>
+          <textarea name="message" rows="4" required placeholder="Tell us about your requirements..."></textarea>
+        </label>
+        <button type="submit" class="btn btn--primary btn--block">Send message</button>
+      </form>
+    </div>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
