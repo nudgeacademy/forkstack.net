@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+
+
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Features - ForkStack Restaurant OS</title>
+
+<!-- Fonts & Icons -->
+
+
+<!-- Tailwind CSS Engine & Custom Theme Config -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+tailwind.config = {
+    darkMode: "class",
+    theme: {
+        extend: {
+            "colors": {
+                "primary": "#006b2c",
+                "primary-container": "#00873a",
+                "on-primary": "#ffffff",
+                "surface": "#f8f9fa",
+                "surface-container": "#edeeef",
+                "surface-container-low": "#f3f4f5",
+                "surface-container-lowest": "#ffffff",
+                "on-surface": "#191c1d",
+                "on-surface-variant": "#3e4a3d",
+                "border-subtle": "#E5E7EB",
+                "success-light": "#DCFCE7",
+                "success-dark": "#15803D"
+            },
+            "fontFamily": {
+                "headline": ["Sora", "sans-serif"],
+                "body": ["Inter", "sans-serif"]
+            }
+        }
+    }
+}
+</script>
+<link rel="stylesheet" href="styles.css">
+<style>
+  .feature-card {
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px -8px rgba(0, 107, 44, 0.12);
+  }
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased overflow-x-hidden">
+<header class="nav" id="top">
+  <div class="nav__pill">
+    <a href="index.html" class="nav__brand" aria-label="ForkStack home">
+      <img src="assets/logo.png" alt="ForkStack logo" class="nav__logo" width="32" height="32">
+      <span class="nav__wordmark">ForkStack</span>
+    </a>
+
+    <nav class="nav__links" id="navLinks" aria-label="Primary">
+        <a href="products.html" class="">Products</a>
+        <a href="features.html" class="nav__link--active active">Features</a>
+        <a href="pricing.html" class="">Pricing</a>
+        <a href="download.html" class="">Download</a>
+        <a href="faq.html" class="">FAQ</a>
+    </nav>
+
+    <div class="nav__actions">
+      <button onclick="document.getElementById('sales-modal').showModal()" class="btn btn--primary nav__cta">Start trial</button>
+    </div>
+
+    <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMobile">
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="nav__mobile" id="navMobile">
+        <a href="products.html" class="">Products</a>
+        <a href="features.html" class="nav__link--active active">Features</a>
+        <a href="pricing.html" class="">Pricing</a>
+        <a href="download.html" class="">Download</a>
+        <a href="faq.html" class="">FAQ</a>
+      <hr>
+      <button onclick="document.getElementById('sales-modal').showModal()" class="btn btn--primary btn--block">Start trial</button>
+    </div>
+  </div>
+</header>
+
+
+
+
+<!-- Floating Header Nav -->
+
+
+<main class="w-full flex-1">
+  <!-- Hero Section -->
+  <!-- Page Header -->
+  <section class="relative pt-28 md:pt-32 pb-14 md:pb-16 px-4 sm:px-6 bg-gradient-to-b from-emerald-100/60 via-teal-50/30 to-surface border-b border-border-subtle text-center overflow-hidden">
+    <div class="max-w-[1140px] mx-auto space-y-4">
+      <span class="inline-block px-3.5 py-1 bg-emerald-100 text-emerald-800 font-bold text-xs rounded-full uppercase tracking-wider">26+ Real-Time Capabilities</span>
+      <h1 class="font-headline text-4xl sm:text-5xl md:text-6xl font-extrabold text-on-surface tracking-tight leading-tight">Built for <span class="text-primary">High-Volume Venues</span></h1>
+      <p class="font-body text-base md:text-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">Explore the complete suite of front-of-house billing, kitchen display, multi-outlet inventory, HR payroll, and catering tools.</p>
+    </div>
+  </section>
+
+  <!-- Unified Features Grid Container -->
+  <div class="max-w-[1140px] mx-auto px-6 pt-16 pb-20 space-y-16">
+    
+    <!-- Category 1: Billing & Orders -->
+    <section class="space-y-6">
+      <div class="border-b border-border-subtle pb-3 flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center">
+          <span class="material-symbols-outlined text-lg">receipt_long</span>
+        </div>
+        <h2 class="font-headline text-2xl font-bold text-on-surface">Billing & Orders</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Card 1 -->
+        <div class="feature-card bg-surface-container-lowest border border-border-subtle rounded-2xl p-6 flex flex-col gap-4 shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-primary shrink-0">
+            <span class="material-symbols-outlined text-2xl">point_of_sale</span>
+          </div>
+          <div class="space-y-1.5">
+            <h3 class="font-headline font-bold text-on-surface text-lg">Lightning Fast POS</h3>
+            <p class="font-body text-sm text-on-surface-variant leading-relaxed">Optimized for speed during peak hours. Minimal taps required for complex orders, notes, and custom modifications.</p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="feature-card bg-surface-container-lowest border border-border-subtle rounded-2xl p-6 flex flex-col gap-4 shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-primary shrink-0">
+            <span class="material-symbols-outlined text-2xl">splitscreen</span>
+          </div>
+          <div class="space-y-1.5">
+            <h3 class="font-headline font-bold text-on-surface text-lg">Advanced Bill Splitting</h3>
+            <p class="font-body text-sm text-on-surface-variant leading-relaxed">Split by item, seat, or equal fractions instantly. Multi-tender checkout supporting Cash, Card, and UPI on one bill.</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="feature-card bg-surface-container-lowest border border-border-subtle rounded-2xl p-6 flex flex-col gap-4 shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-primary shrink-0">
+            <span class="material-symbols-outlined text-2xl">table_restaurant</span>
+          </div>
+          <div class="space-y-1.5">
+            <h3 class="font-headline font-bold text-on-surface text-lg">Tableside Floor View</h3>
+            <p class="font-body text-sm text-on-surface-variant leading-relaxed">Visual table grid layout with real-time occupancy status. Transfer, merge, or swap orders with a single tap.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Category 2: Kitchen Operations -->
+    <section class="space-y-6">
+      <div class="border-b border-border-subtle pb-3 flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center">
+          <span class="material-symbols-outlined text-lg">kitchen</span>
+        </div>
+        <h2 class="font-headline text-2xl font-bold text-on-surface">Kitchen Operations</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Card 1 -->
+        <div class="feature-card bg-surface-container-lowest border border-border-subtle rounded-2xl p-6 flex flex-col gap-4 shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-primary shrink-0">
+            <span class="material-symbols-outlined text-2xl">kitchen</span>
+          </div>
+          <div class="space-y-1.5">
+            <h3 class="font-headline font-bold text-on-surface text-lg">Intelligent KDS</h3>
+            <p class="font-body text-sm text-on-surface-variant leading-relaxed">Digital ticket routing based on station capacity. Color-coded prep timers (≥15 min alert) ensure dishes plate together.</p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="feature-card bg-surface-container-lowest border border-border-subtle rounded-2xl p-6 flex flex-col gap-4 shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-primary shrink-0">
+            <span class="material-symbols-outlined text-2xl">timer</span>
+          </div>
+          <div class="space-y-1.5">
+            <h3 class="font-headline font-bold text-on-surface text-lg">KOT Round System</h3>
+            <p class="font-body text-sm text-on-surface-variant leading-relaxed">Round-based kitchen order tickets with automated course pacing. Keeps the flow of dining service predictable.</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="feature-card bg-surface-container-lowest border border-border-subtle rounded-2xl p-6 flex flex-col gap-4 shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-primary shrink-0">
+            <span class="material-symbols-outlined text-2xl">print</span>
+          </div>
+          <div class="space-y-1.5">
+            <h3 class="font-headline font-bold text-on-surface text-lg">Thermal Printer Routing</h3>
+            <p class="font-body text-sm text-on-surface-variant leading-relaxed">Direct network TCP, USB, and Bluetooth ESC/POS printing (80mm/58mm). Automatic fallback printing queue.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Category 3: Inventory & Procurement -->
+    <section class="space-y-6">
+      <div class="border-b border-border-subtle pb-3 flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center">
+          <span class="material-symbols-outlined text-lg">inventory_2</span>
+        </div>
+        <h2 class="font-headline text-2xl font-bold text-on-surface">Inventory & Procurement</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Card 1 -->
+        <div class="feature-card bg-surface-container-lowest border border-border-subtle rounded-2xl p-6 flex flex-col gap-4 shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-primary shrink-0">
+            <span class="material-symbols-outlined text-2xl">sync</span>
+          </div>
+          <div class="space-y-1.5">
+            <h3 class="font-headline font-bold text-on-surface text-lg">Recipe BOM Auto-Depletion</h3>
+            <p class="font-body text-sm text-on-surface-variant leading-relaxed">Raw ingredients deduct automatically down to the gram on every sale based on Bill-of-Materials rules.</p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="feature-card bg-surface-container-lowest border border-border-subtle rounded-2xl p-6 flex flex-col gap-4 shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-primary shrink-0">
+            <span class="material-symbols-outlined text-2xl">request_quote</span>
+          </div>
+          <div class="space-y-1.5">
+            <h3 class="font-headline font-bold text-on-surface text-lg">Recipe COGS Costing</h3>
+            <p class="font-body text-sm text-on-surface-variant leading-relaxed">Track exact plate costs down to the cent. Monitor margin fluctuations as supplier commodity prices update.</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="feature-card bg-surface-container-lowest border border-border-subtle rounded-2xl p-6 flex flex-col gap-4 shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-primary shrink-0">
+            <span class="material-symbols-outlined text-2xl">local_shipping</span>
+          </div>
+          <div class="space-y-1.5">
+            <h3 class="font-headline font-bold text-on-surface text-lg">Vendor PO Lifecycle</h3>
+            <p class="font-body text-sm text-on-surface-variant leading-relaxed">Generate Purchase Orders automatically based on reorder thresholds. Inter-outlet stock transfer management.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Category 4: Financials & HR -->
+    <section class="space-y-6">
+      <div class="border-b border-border-subtle pb-3 flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center">
+          <span class="material-symbols-outlined text-lg">account_balance</span>
+        </div>
+        <h2 class="font-headline text-2xl font-bold text-on-surface">Financials & HR</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Card 1 -->
+        <div class="feature-card bg-surface-container-lowest border border-border-subtle rounded-2xl p-6 flex flex-col gap-4 shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-primary shrink-0">
+            <span class="material-symbols-outlined text-2xl">analytics</span>
+          </div>
+          <div class="space-y-1.5">
+            <h3 class="font-headline font-bold text-on-surface text-lg">Automated Z-Report</h3>
+            <p class="font-body text-sm text-on-surface-variant leading-relaxed">Reconcile cash drawers, record inflow/outflow audit trails, and generate daily Z-Reports with one tap.</p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="feature-card bg-surface-container-lowest border border-border-subtle rounded-2xl p-6 flex flex-col gap-4 shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-primary shrink-0">
+            <span class="material-symbols-outlined text-2xl">insights</span>
+          </div>
+          <div class="space-y-1.5">
+            <h3 class="font-headline font-bold text-on-surface text-lg">Live P&L & GST Reports</h3>
+            <p class="font-body text-sm text-on-surface-variant leading-relaxed">Consolidated P&L statement tracking labor and COGS in real-time alongside tax breakdown reports.</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="feature-card bg-surface-container-lowest border border-border-subtle rounded-2xl p-6 flex flex-col gap-4 shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-primary shrink-0">
+            <span class="material-symbols-outlined text-2xl">fingerprint</span>
+          </div>
+          <div class="space-y-1.5">
+            <h3 class="font-headline font-bold text-on-surface text-lg">Staff PIN & Attendance</h3>
+            <p class="font-body text-sm text-on-surface-variant leading-relaxed">Secure 4-digit PIN cashier access, daily attendance rosters, employee advances, and monthly payroll processing.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Category 5: Events & Platform Infrastructure -->
+    <section class="space-y-6">
+      <div class="border-b border-border-subtle pb-3 flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center">
+          <span class="material-symbols-outlined text-lg">event</span>
+        </div>
+        <h2 class="font-headline text-2xl font-bold text-on-surface">Events & Core Infrastructure</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Card 1 -->
+        <div class="feature-card bg-surface-container-lowest border border-border-subtle rounded-2xl p-6 flex flex-col gap-4 shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-primary shrink-0">
+            <span class="material-symbols-outlined text-2xl">contract</span>
+          </div>
+          <div class="space-y-1.5">
+            <h3 class="font-headline font-bold text-on-surface text-lg">Event Catering Pipeline</h3>
+            <p class="font-body text-sm text-on-surface-variant leading-relaxed">Full Inquiry → Quoted → Confirmed → Delivered workflow with equipment allocation and profit analysis.</p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="feature-card bg-surface-container-lowest border border-border-subtle rounded-2xl p-6 flex flex-col gap-4 shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-primary shrink-0">
+            <span class="material-symbols-outlined text-2xl">bolt</span>
+          </div>
+          <div class="space-y-1.5">
+            <h3 class="font-headline font-bold text-on-surface text-lg">Socket.IO Sub-Second Sync</h3>
+            <p class="font-body text-sm text-on-surface-variant leading-relaxed">Sub-second data propagation across all devices in an outlet. Instant ticket printing and menu updates.</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="feature-card bg-surface-container-lowest border border-border-subtle rounded-2xl p-6 flex flex-col gap-4 shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-primary shrink-0">
+            <span class="material-symbols-outlined text-2xl">wifi_off</span>
+          </div>
+          <div class="space-y-1.5">
+            <h3 class="font-headline font-bold text-on-surface text-lg">IndexedDB Offline Engine</h3>
+            <p class="font-body text-sm text-on-surface-variant leading-relaxed">Keep taking orders, printing bills, and recording cash transactions even during complete internet outages.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Tech & Platform Showcase Strip -->
+  <section class="bg-surface-container-lowest border-y border-border-subtle py-16 px-6">
+    <div class="max-w-[1140px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div class="space-y-6">
+        <span class="inline-block px-3.5 py-1 bg-emerald-100 text-emerald-800 font-bold text-xs rounded-full uppercase tracking-wider">Zero Downtime</span>
+        <h2 class="font-headline text-3xl font-extrabold text-on-surface">Architected for 100% Reliability</h2>
+        <p class="font-body text-base text-on-surface-variant leading-relaxed">
+          Hospitality never stops for internet outages. Our ForkStack POS and Companion tablet architecture keeps your venue running smoothly with sub-second WebSocket sync and IndexedDB outbox resilience.
+        </p>
+
+        <div class="flex flex-wrap gap-3 font-headline text-xs font-bold text-on-surface">
+          <span class="px-4 py-2 bg-surface-container rounded-full flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary text-base">bolt</span> Real-time Socket.IO
+          </span>
+          <span class="px-4 py-2 bg-surface-container rounded-full flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary text-base">wifi_off</span> Offline IndexedDB
+          </span>
+          <span class="px-4 py-2 bg-surface-container rounded-full flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary text-base">security</span> Role Scoping
+          </span>
+        </div>
+      </div>
+
+      <div class="relative h-72 md:h-[340px] rounded-2xl overflow-hidden border border-border-subtle shadow-lg">
+        <img class="w-full h-full object-cover" src="assets/restaurant-hero.jpg" alt="ForkStack Restaurant Environment"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Global Footer -->
+<footer class="bg-surface-container-highest dark:bg-inverse-surface border-t border-border-subtle py-16 px-6 mt-auto">
+<div class="max-w-[1140px] mx-auto grid grid-cols-1 md:grid-cols-5 gap-8">
+  <div class="md:col-span-2 space-y-4">
+    <a class="flex items-center gap-2.5 font-headline text-xl font-extrabold text-on-surface" href="index.html">
+      <img src="assets/logo.png" alt="ForkStack logo" class="w-8 h-8 rounded-full object-cover">
+      <span>ForkStack</span>
+    </a>
+    <p class="font-body text-sm text-on-surface-variant max-w-sm leading-relaxed">The full-stack restaurant OS. Unifying POS billing, Kitchen Displays, Multi-Outlet Inventory, AI Analytics, and Catering management for modern venues.</p>
+    <div class="flex items-center gap-3 pt-2">
+      <span class="inline-flex items-center gap-2 px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block"></span>
+        System Status: 100% Operational
+      </span>
+    </div>
+  </div>
+  <div>
+    <h4 class="font-headline text-xs font-bold text-on-surface uppercase tracking-wider mb-4">Products</h4>
+    <ul class="space-y-2.5 font-body text-sm text-on-surface-variant">
+      <li><a class="hover:text-primary transition-colors" href="products.html">POS Terminal</a></li>
+      <li><a class="hover:text-primary transition-colors" href="products.html">Restaurant ERP Suite</a></li>
+      <li><a class="hover:text-primary transition-colors" href="features.html">Kitchen Display (KDS)</a></li>
+      <li><a class="hover:text-primary transition-colors" href="download.html">Android POS App (.apk)</a></li>
+      <li><a class="hover:text-primary transition-colors" href="download.html">Desktop POS & ERP</a></li>
+    </ul>
+  </div>
+  <div>
+    <h4 class="font-headline text-xs font-bold text-on-surface uppercase tracking-wider mb-4">Platform</h4>
+    <ul class="space-y-2.5 font-body text-sm text-on-surface-variant">
+      <li><a class="hover:text-primary transition-colors" href="features.html">All 26+ Features</a></li>
+      <li><a class="hover:text-primary transition-colors" href="pricing.html">Transparent Pricing</a></li>
+      <li><a class="hover:text-primary transition-colors" href="download.html">Download Center</a></li>
+    </ul>
+  </div>
+  <div>
+    <h4 class="font-headline text-xs font-bold text-on-surface uppercase tracking-wider mb-4">Support & Help</h4>
+    <ul class="space-y-2.5 font-body text-sm text-on-surface-variant">
+      <li><a class="hover:text-primary transition-colors" href="faq.html">Help & FAQ</a></li>
+      <li><a class="hover:text-primary transition-colors" href="faq.html">Hardware Compatibility</a></li>
+      <li><a class="hover:text-primary transition-colors" href="#" onclick="document.getElementById('sales-modal').showModal(); return false;">Contact Sales Team</a></li>
+      <li><a class="hover:text-primary transition-colors" href="faq.html">Documentation</a></li>
+    </ul>
+  </div>
+</div>
+<div class="max-w-[1140px] mx-auto mt-12 pt-8 border-t border-border-subtle flex flex-col sm:flex-row justify-between items-center text-xs text-on-surface-variant gap-4">
+  <p>&copy; 2026 ForkStack Platform. All rights reserved.</p>
+  <div class="flex gap-6">
+    <a class="hover:text-primary transition-colors" href="faq.html">Privacy Policy</a>
+    <a class="hover:text-primary transition-colors" href="faq.html">Terms of Service</a>
+    <a class="hover:text-primary transition-colors" href="faq.html">Security & Audit</a>
+  </div>
+</div>
+</footer>
+
+<!-- Sales Inquiry Modal -->
+<dialog id="sales-modal" class="modal">
+  <div class="modal__inner">
+    <div class="modal__header">
+      <h3>Talk to sales</h3>
+      <button onclick="document.getElementById('sales-modal').close()" class="modal__close">&times;</button>
+    </div>
+    <form action="https://formsubmit.co/asifalikp3210@gmail.com" method="POST" class="modal__form">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="New ForkStack Sales Inquiry!">
+      <label>
+        <span>Name</span>
+        <input type="text" name="name" required placeholder="Your name">
+      </label>
+      <label>
+        <span>Email</span>
+        <input type="email" name="email" required placeholder="name@company.com">
+      </label>
+      <label>
+        <span>Phone Number</span>
+        <input type="tel" name="phone" required placeholder="+91 99999 99999">
+      </label>
+      <label>
+        <span>Number of Outlets</span>
+        <select name="outlets" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="1">1 (Single Outlet)</option>
+          <option value="2-5">2 to 5</option>
+          <option value="6-20">6 to 20</option>
+          <option value="21+">21 or more</option>
+        </select>
+      </label>
+      <label>
+        <span>Message</span>
+        <textarea name="message" rows="4" required placeholder="Tell us about your requirements..."></textarea>
+      </label>
+      <button type="submit" class="btn btn--primary btn--block">Send message</button>
+    </form>
+  </div>
+</dialog>
+
+<script src="script.js"></script>
+</body>
+</html>
