@@ -1,22 +1,67 @@
 <!DOCTYPE html>
 <html class="light" lang="en">
 <head>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-
-
-
-
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Pricing - ForkStack POS & ERP</title>
 
-<!-- Fonts & Icons -->
+<script>
+// Smart Location Router: Redirects user to their country pricing page
+(function() {
+  function getTargetPage() {
+    // Check URL search param first (e.g. pricing.html?region=ae)
+    const params = new URLSearchParams(window.location.search);
+    const regParam = (params.get('region') || '').toLowerCase();
+    if (regParam === 'in' || regParam === 'india') return 'pricing-india.html';
+    if (regParam === 'ae' || regParam === 'uae') return 'pricing-uae.html';
+    if (regParam === 'sa' || regParam === 'saudi') return 'pricing-saudi.html';
+    if (regParam === 'us' || regParam === 'usa') return 'pricing-usa.html';
 
+    // Check localStorage
+    const saved = localStorage.getItem('forkstack_user_region');
+    if (saved === 'in') return 'pricing-india.html';
+    if (saved === 'ae') return 'pricing-uae.html';
+    if (saved === 'sa') return 'pricing-saudi.html';
+    if (saved === 'us') return 'pricing-usa.html';
 
-<!-- Tailwind CSS Engine & Custom Theme Config -->
+    // Check Timezone heuristic
+    try {
+      const tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || "").toLowerCase();
+      if (tz.includes("kolkata") || tz.includes("calcutta") || tz.includes("india")) return 'pricing-india.html';
+      if (tz.includes("dubai") || tz.includes("muscat") || tz.includes("uae") || tz.includes("emirates")) return 'pricing-uae.html';
+      if (tz.includes("riyadh") || tz.includes("saudi") || tz.includes("jeddah")) return 'pricing-saudi.html';
+      if (tz.includes("america") || tz.includes("us/") || tz.includes("york") || tz.includes("chicago") || tz.includes("los_angeles") || tz.includes("london") || tz.includes("europe")) return 'pricing-usa.html';
+    } catch (e) {}
+
+    return 'pricing-india.html'; // Default to India or fallback
+  }
+
+  const target = getTargetPage();
+  window.location.replace(target);
+
+  // Fast async IP check as secondary precision check
+  fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(2000) })
+    .then(res => res.json())
+    .then(data => {
+      const country = (data.country_code || '').toUpperCase();
+      let ipTarget = null;
+      if (country === 'IN') ipTarget = 'pricing-india.html';
+      else if (country === 'AE') ipTarget = 'pricing-uae.html';
+      else if (country === 'SA') ipTarget = 'pricing-saudi.html';
+      else if (country) ipTarget = 'pricing-usa.html';
+
+      if (ipTarget && window.location.pathname.endsWith('pricing.html')) {
+        window.location.replace(ipTarget);
+      }
+    })
+    .catch(function() {});
+})();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script id="tailwind-config">
 tailwind.config = {
@@ -29,13 +74,9 @@ tailwind.config = {
                 "on-primary": "#ffffff",
                 "surface": "#f8f9fa",
                 "surface-container": "#edeeef",
-                "surface-container-low": "#f3f4f5",
-                "surface-container-lowest": "#ffffff",
                 "on-surface": "#191c1d",
                 "on-surface-variant": "#3e4a3d",
-                "border-subtle": "#E5E7EB",
-                "success-light": "#DCFCE7",
-                "success-dark": "#15803D"
+                "border-subtle": "#E5E7EB"
             },
             "fontFamily": {
                 "headline": ["Sora", "sans-serif"],
@@ -47,243 +88,25 @@ tailwind.config = {
 </script>
 <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-surface text-on-surface font-body antialiased overflow-x-hidden min-h-screen flex flex-col">
-<header class="nav" id="top">
-  <div class="nav__pill">
-    <a href="index.html" class="nav__brand" aria-label="ForkStack home">
-      <img src="assets/logo.png" alt="ForkStack logo" class="nav__logo" width="32" height="32">
-      <span class="nav__wordmark">ForkStack</span>
-    </a>
+<body class="bg-surface text-on-surface font-body antialiased flex flex-col min-h-screen justify-center items-center p-6 text-center">
 
-    <nav class="nav__links" id="navLinks" aria-label="Primary">
-        <a href="products.html" class="">Products</a>
-        <a href="features.html" class="">Features</a>
-        <a href="pricing.html" class="nav__link--active active">Pricing</a>
-        <a href="download.html" class="">Download</a>
-        <a href="faq.html" class="">FAQ</a>
-    </nav>
-
-    <div class="nav__actions">
-      <button onclick="document.getElementById('sales-modal').showModal()" class="btn btn--primary nav__cta">Start trial</button>
-    </div>
-
-    <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMobile">
-      <span></span><span></span><span></span>
-    </button>
-
-    <div class="nav__mobile" id="navMobile">
-        <a href="products.html" class="">Products</a>
-        <a href="features.html" class="">Features</a>
-        <a href="pricing.html" class="nav__link--active active">Pricing</a>
-        <a href="download.html" class="">Download</a>
-        <a href="faq.html" class="">FAQ</a>
-      <hr>
-      <button onclick="document.getElementById('sales-modal').showModal()" class="btn btn--primary btn--block">Start trial</button>
-    </div>
+<div class="max-w-md bg-white border border-border-subtle rounded-2xl p-8 shadow-lg space-y-6">
+  <img src="assets/logo.png" alt="ForkStack logo" class="w-12 h-12 mx-auto rounded-full object-cover">
+  <div class="space-y-2">
+    <h1 class="font-headline text-2xl font-bold">Redirecting to Pricing...</h1>
+    <p class="font-body text-xs text-on-surface-variant">We are detecting your location to show local pricing and currency.</p>
   </div>
-</header>
 
-
-
-
-<!-- Floating Header Nav -->
-
-
-<main class="w-full flex-1">
-  <!-- Page Header -->
-  <section class="relative pt-28 md:pt-32 pb-14 md:pb-16 px-4 sm:px-6 bg-gradient-to-b from-emerald-100/60 via-teal-50/30 to-surface border-b border-border-subtle text-center overflow-hidden">
-    <div class="max-w-[1140px] mx-auto space-y-4">
-      <span class="inline-block px-3.5 py-1 bg-emerald-100 text-emerald-800 font-bold text-xs rounded-full uppercase tracking-wider">Simple & Transparent</span>
-      <h1 class="font-headline text-4xl sm:text-5xl md:text-6xl font-extrabold text-on-surface tracking-tight leading-tight">Predictable <span class="text-primary">Hospitality Pricing</span></h1>
-      <p class="font-body text-base md:text-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">No hidden per-transaction fees. Choose the plan that fits your venue size.</p>
+  <div class="pt-4 border-t border-border-subtle space-y-2 text-xs font-medium">
+    <p class="text-gray-400 font-bold uppercase tracking-wider">Or select your country:</p>
+    <div class="grid grid-cols-2 gap-2">
+      <a href="pricing-india.html" class="p-3 bg-surface-container hover:bg-emerald-50 hover:text-primary rounded-xl font-bold transition-all flex items-center justify-center gap-1.5">🇮🇳 India (₹)</a>
+      <a href="pricing-uae.html" class="p-3 bg-surface-container hover:bg-emerald-50 hover:text-primary rounded-xl font-bold transition-all flex items-center justify-center gap-1.5">🇦🇪 UAE (AED)</a>
+      <a href="pricing-saudi.html" class="p-3 bg-surface-container hover:bg-emerald-50 hover:text-primary rounded-xl font-bold transition-all flex items-center justify-center gap-1.5">🇸🇦 Saudi Arabia (SAR)</a>
+      <a href="pricing-usa.html" class="p-3 bg-surface-container hover:bg-emerald-50 hover:text-primary rounded-xl font-bold transition-all flex items-center justify-center gap-1.5">🇺🇸 USA & Global ($)</a>
     </div>
-  </section>
-
-  <div class="max-w-[1140px] mx-auto px-6 pt-16 pb-20 space-y-16">
-    <!-- Pricing Cards 3-Column Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-      
-      <!-- Starter Plan -->
-      <div class="bg-surface-container-lowest border border-border-subtle rounded-2xl p-8 shadow-sm flex flex-col justify-between space-y-8">
-        <div class="space-y-6">
-          <div>
-            <h3 class="font-headline text-xl font-bold text-on-surface">POS Starter</h3>
-            <p class="font-body text-xs text-on-surface-variant mt-1">For single-outlet cafés & QSRs</p>
-          </div>
-          <div class="flex items-baseline gap-1">
-            <span class="font-headline text-4xl font-extrabold text-on-surface">₹1,999</span>
-            <span class="font-body text-xs text-on-surface-variant">/outlet/mo</span>
-          </div>
-
-          <ul class="space-y-3 font-body text-xs text-on-surface font-medium border-t border-border-subtle pt-6">
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">check_circle</span> Touchscreen POS cashier billing</li>
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">check_circle</span> Visual table layout & floor view</li>
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">check_circle</span> Kitchen Display (KDS) ticket routing</li>
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">check_circle</span> Split checkout (Cash/Card/UPI)</li>
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">check_circle</span> Offline IndexedDB billing resilience</li>
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">check_circle</span> Daily Z-Report & cash drawer logs</li>
-          </ul>
-        </div>
-
-        <button onclick="document.getElementById('sales-modal').showModal()" class="w-full font-headline text-sm font-bold bg-surface-container text-on-surface py-3.5 px-6 rounded-full hover:bg-border-subtle transition-colors">
-          Start 14-Day Trial
-        </button>
-      </div>
-
-      <!-- Pro Plan (Featured) -->
-      <div class="bg-surface-container-lowest border-2 border-primary rounded-2xl p-8 shadow-xl flex flex-col justify-between space-y-8 relative scale-105">
-        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-primary text-white font-headline text-[10px] font-extrabold uppercase px-3 py-1 rounded-full tracking-wider shadow-sm">
-          Most Popular
-        </div>
-
-        <div class="space-y-6">
-          <div>
-            <h3 class="font-headline text-xl font-bold text-on-surface">ERP Pro</h3>
-            <p class="font-body text-xs text-on-surface-variant mt-1">Multi-outlet & back-office suite</p>
-          </div>
-          <div class="flex items-baseline gap-1">
-            <span class="font-headline text-4xl font-extrabold text-primary">₹4,999</span>
-            <span class="font-body text-xs text-on-surface-variant">/month</span>
-          </div>
-
-          <ul class="space-y-3 font-body text-xs text-on-surface font-medium border-t border-border-subtle pt-6">
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">check_circle</span> Everything in POS Starter</li>
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">check_circle</span> Recipe BOM ingredient auto-deduction</li>
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">check_circle</span> AI Natural Language Data Assistant</li>
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">check_circle</span> Vendor POs & inter-outlet transfers</li>
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">check_circle</span> Staff PIN, roster & monthly payroll</li>
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">check_circle</span> Event Catering pipeline & P&L reports</li>
-          </ul>
-        </div>
-
-        <button onclick="document.getElementById('sales-modal').showModal()" class="w-full font-headline text-sm font-bold bg-primary text-white py-3.5 px-6 rounded-full hover:bg-primary-container transition-colors shadow-md">
-          Start Pro Trial
-        </button>
-      </div>
-
-      <!-- Enterprise Plan -->
-      <div class="bg-surface-container-lowest border border-border-subtle rounded-2xl p-8 shadow-sm flex flex-col justify-between space-y-8">
-        <div class="space-y-6">
-          <div>
-            <h3 class="font-headline text-xl font-bold text-on-surface">Enterprise</h3>
-            <p class="font-body text-xs text-on-surface-variant mt-1">For chains & central kitchens</p>
-          </div>
-          <div class="flex items-baseline gap-1">
-            <span class="font-headline text-3xl font-extrabold text-on-surface">Custom</span>
-          </div>
-
-          <ul class="space-y-3 font-body text-xs text-on-surface font-medium border-t border-border-subtle pt-6">
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">check_circle</span> Unlimited outlets & central kitchens</li>
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">check_circle</span> Custom API integrations & ERP connectors</li>
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">check_circle</span> Dedicated SLA & 24/7 priority support</li>
-            <li class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-base">check_circle</span> Dedicated Account Manager</li>
-          </ul>
-        </div>
-
-        <button onclick="document.getElementById('sales-modal').showModal()" class="w-full font-headline text-sm font-bold bg-surface-container text-on-surface py-3.5 px-6 rounded-full hover:bg-border-subtle transition-colors">
-          Contact Sales Team
-        </button>
-      </div>
-
-    </div>
-  </div>
-</main>
-
-<!-- Global Footer -->
-<footer class="bg-surface-container-highest dark:bg-inverse-surface border-t border-border-subtle py-16 px-6 mt-auto">
-<div class="max-w-[1140px] mx-auto grid grid-cols-1 md:grid-cols-5 gap-8">
-  <div class="md:col-span-2 space-y-4">
-    <a class="flex items-center gap-2.5 font-headline text-xl font-extrabold text-on-surface" href="index.html">
-      <img src="assets/logo.png" alt="ForkStack logo" class="w-8 h-8 rounded-full object-cover">
-      <span>ForkStack</span>
-    </a>
-    <p class="font-body text-sm text-on-surface-variant max-w-sm leading-relaxed">The full-stack restaurant OS. Unifying POS billing, Kitchen Displays, Multi-Outlet Inventory, AI Analytics, and Catering management for modern venues.</p>
-    <div class="flex items-center gap-3 pt-2">
-      <span class="inline-flex items-center gap-2 px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full">
-        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block"></span>
-        System Status: 100% Operational
-      </span>
-    </div>
-  </div>
-  <div>
-    <h4 class="font-headline text-xs font-bold text-on-surface uppercase tracking-wider mb-4">Products</h4>
-    <ul class="space-y-2.5 font-body text-sm text-on-surface-variant">
-      <li><a class="hover:text-primary transition-colors" href="products.html">POS Terminal</a></li>
-      <li><a class="hover:text-primary transition-colors" href="products.html">Restaurant ERP Suite</a></li>
-      <li><a class="hover:text-primary transition-colors" href="features.html">Kitchen Display (KDS)</a></li>
-      <li><a class="hover:text-primary transition-colors" href="download.html">Android POS App (.apk)</a></li>
-      <li><a class="hover:text-primary transition-colors" href="download.html">Desktop POS & ERP</a></li>
-    </ul>
-  </div>
-  <div>
-    <h4 class="font-headline text-xs font-bold text-on-surface uppercase tracking-wider mb-4">Platform</h4>
-    <ul class="space-y-2.5 font-body text-sm text-on-surface-variant">
-      <li><a class="hover:text-primary transition-colors" href="features.html">All 26+ Features</a></li>
-      <li><a class="hover:text-primary transition-colors" href="pricing.html">Transparent Pricing</a></li>
-      <li><a class="hover:text-primary transition-colors" href="download.html">Download Center</a></li>
-    </ul>
-  </div>
-  <div>
-    <h4 class="font-headline text-xs font-bold text-on-surface uppercase tracking-wider mb-4">Support & Help</h4>
-    <ul class="space-y-2.5 font-body text-sm text-on-surface-variant">
-      <li><a class="hover:text-primary transition-colors" href="faq.html">Help & FAQ</a></li>
-      <li><a class="hover:text-primary transition-colors" href="faq.html">Hardware Compatibility</a></li>
-      <li><a class="hover:text-primary transition-colors" href="#" onclick="document.getElementById('sales-modal').showModal(); return false;">Contact Sales Team</a></li>
-      <li><a class="hover:text-primary transition-colors" href="faq.html">Documentation</a></li>
-    </ul>
   </div>
 </div>
-<div class="max-w-[1140px] mx-auto mt-12 pt-8 border-t border-border-subtle flex flex-col sm:flex-row justify-between items-center text-xs text-on-surface-variant gap-4">
-  <p>&copy; 2026 ForkStack Platform. All rights reserved.</p>
-  <div class="flex gap-6">
-    <a class="hover:text-primary transition-colors" href="faq.html">Privacy Policy</a>
-    <a class="hover:text-primary transition-colors" href="faq.html">Terms of Service</a>
-    <a class="hover:text-primary transition-colors" href="faq.html">Security & Audit</a>
-  </div>
-</div>
-</footer>
 
-<!-- Sales Inquiry Modal -->
-<dialog id="sales-modal" class="modal">
-  <div class="modal__inner">
-    <div class="modal__header">
-      <h3>Talk to sales</h3>
-      <button onclick="document.getElementById('sales-modal').close()" class="modal__close">&times;</button>
-    </div>
-    <form action="https://formsubmit.co/asifalikp3210@gmail.com" method="POST" class="modal__form">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_subject" value="New ForkStack Sales Inquiry!">
-      <label>
-        <span>Name</span>
-        <input type="text" name="name" required placeholder="Your name">
-      </label>
-      <label>
-        <span>Email</span>
-        <input type="email" name="email" required placeholder="name@company.com">
-      </label>
-      <label>
-        <span>Phone Number</span>
-        <input type="tel" name="phone" required placeholder="+91 99999 99999">
-      </label>
-      <label>
-        <span>Number of Outlets</span>
-        <select name="outlets" required>
-          <option value="" disabled selected>Select an option</option>
-          <option value="1">1 (Single Outlet)</option>
-          <option value="2-5">2 to 5</option>
-          <option value="6-20">6 to 20</option>
-          <option value="21+">21 or more</option>
-        </select>
-      </label>
-      <label>
-        <span>Message</span>
-        <textarea name="message" rows="4" required placeholder="Tell us about your requirements..."></textarea>
-      </label>
-      <button type="submit" class="btn btn--primary btn--block">Send message</button>
-    </form>
-  </div>
-</dialog>
-
-<script src="script.js"></script>
 </body>
 </html>
