@@ -6,55 +6,86 @@
 <title>Pricing - ForkStack POS & ERP</title>
 
 <script>
-// Smart Location Router: Redirects user to their country pricing page
-(function() {
-  function getTargetPage() {
-    // Check URL search param first (e.g. pricing.html?region=ae)
-    const params = new URLSearchParams(window.location.search);
-    const regParam = (params.get('region') || '').toLowerCase();
-    if (regParam === 'in' || regParam === 'india') return 'pricing-india.html';
-    if (regParam === 'ae' || regParam === 'uae') return 'pricing-uae.html';
-    if (regParam === 'sa' || regParam === 'saudi') return 'pricing-saudi.html';
-    if (regParam === 'us' || regParam === 'usa') return 'pricing-usa.html';
+// Smart Location Router: sends the visitor to the pricing page for their country.
+// Priority: 
+// 1. Explicit URL parameter ?region=in/ae/sa/us
+// 2. Fast live IP geolocation (api.country.is -> ipapi.co)
+// 3. Timezone heuristic (Kolkata -> IN, Dubai -> AE, Riyadh -> SA, All others -> US)
+// 4. Default fallback: US / Global USD (never defaults to IN for international users)
+(function () {
+  var PAGES = {
+    in: 'pricing-india.html',
+    ae: 'pricing-uae.html',
+    sa: 'pricing-saudi.html',
+    us: 'pricing-usa.html'
+  };
+  var ALIAS = { in: 'in', india: 'in', ae: 'ae', uae: 'ae', sa: 'sa', saudi: 'sa', us: 'us', usa: 'us' };
 
-    // Check localStorage
-    const saved = localStorage.getItem('forkstack_user_region');
-    if (saved === 'in') return 'pricing-india.html';
-    if (saved === 'ae') return 'pricing-uae.html';
-    if (saved === 'sa') return 'pricing-saudi.html';
-    if (saved === 'us') return 'pricing-usa.html';
-
-    // Check Timezone heuristic
-    try {
-      const tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || "").toLowerCase();
-      if (tz.includes("kolkata") || tz.includes("calcutta") || tz.includes("india")) return 'pricing-india.html';
-      if (tz.includes("dubai") || tz.includes("muscat") || tz.includes("uae") || tz.includes("emirates")) return 'pricing-uae.html';
-      if (tz.includes("riyadh") || tz.includes("saudi") || tz.includes("jeddah")) return 'pricing-saudi.html';
-      if (tz.includes("america") || tz.includes("us/") || tz.includes("york") || tz.includes("chicago") || tz.includes("los_angeles") || tz.includes("london") || tz.includes("europe")) return 'pricing-usa.html';
-    } catch (e) {}
-
-    return 'pricing-india.html'; // Default to India or fallback
+  var redirected = false;
+  function goTo(code) {
+    if (redirected) return;
+    var page = PAGES[code] || PAGES['us'];
+    redirected = true;
+    try { localStorage.setItem('forkstack_user_region', code); } catch (e) {}
+    window.location.replace(page);
   }
 
-  const target = getTargetPage();
-  window.location.replace(target);
+  // 1. Explicit choice via ?region= (e.g. pricing.html?region=us or pricing.html?region=ae)
+  try {
+    var regParam = (new URLSearchParams(window.location.search).get('region') || '').toLowerCase();
+    if (ALIAS[regParam]) { goTo(ALIAS[regParam]); return; }
+  } catch (e) {}
 
-  // Fast async IP check as secondary precision check
-  fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(2000) })
-    .then(res => res.json())
-    .then(data => {
-      const country = (data.country_code || '').toUpperCase();
-      let ipTarget = null;
-      if (country === 'IN') ipTarget = 'pricing-india.html';
-      else if (country === 'AE') ipTarget = 'pricing-uae.html';
-      else if (country === 'SA') ipTarget = 'pricing-saudi.html';
-      else if (country) ipTarget = 'pricing-usa.html';
+  // Function to guess region from browser timezone
+  function tzGuess() {
+    try {
+      var tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || '').toLowerCase();
+      if (tz.indexOf('kolkata') > -1 || tz.indexOf('calcutta') > -1 || tz.indexOf('india') > -1) return 'in';
+      if (tz.indexOf('dubai') > -1 || tz.indexOf('muscat') > -1 || tz.indexOf('uae') > -1) return 'ae';
+      if (tz.indexOf('riyadh') > -1 || tz.indexOf('jeddah') > -1 || tz.indexOf('saudi') > -1) return 'sa';
+      // Any other timezone (America/Toronto, America/Vancouver, Europe/London, Asia/Singapore, etc.) -> US/Global
+      return 'us';
+    } catch (e) {}
+    return 'us';
+  }
 
-      if (ipTarget && window.location.pathname.endsWith('pricing.html')) {
-        window.location.replace(ipTarget);
-      }
+  function countryToRegion(c) {
+    if (!c) return null;
+    c = c.toUpperCase();
+    if (c === 'IN') return 'in';
+    if (c === 'AE') return 'ae';
+    if (c === 'SA') return 'sa';
+    // All other countries (CA, US, GB, AU, DE, FR, JP, etc.) map to US & Global pricing
+    return 'us';
+  }
+
+  // Safety fallback after 1.8 seconds max
+  var safetyTimer = setTimeout(function() {
+    goTo(tzGuess());
+  }, 1800);
+
+  // Try fast CORS-friendly IP geolocation endpoint first
+  fetch('https://api.country.is/', { signal: AbortSignal.timeout(1500) })
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
+      clearTimeout(safetyTimer);
+      var reg = countryToRegion(data && data.country);
+      goTo(reg || tzGuess());
     })
-    .catch(function() {});
+    .catch(function () {
+      // Secondary IP geolocation fallback (ipapi.co)
+      fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(1500) })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          clearTimeout(safetyTimer);
+          var reg = countryToRegion(data && data.country_code);
+          goTo(reg || tzGuess());
+        })
+        .catch(function () {
+          clearTimeout(safetyTimer);
+          goTo(tzGuess());
+        });
+    });
 })();
 </script>
 

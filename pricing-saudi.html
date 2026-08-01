@@ -517,5 +517,17 @@ tailwind.config = {
   updateDisplay();
 })();
 </script>
+<script>
+// Persist an explicit country switch so it sticks on return visits and overrides
+// auto-detection. Covers the header pills and the footer region links.
+document.addEventListener('click', function (e) {
+  var a = e.target.closest ? e.target.closest('a[href*="pricing-"]') : null;
+  if (!a) return;
+  var m = (a.getAttribute('href') || '').match(/pricing-(india|uae|saudi|usa)\.html/);
+  if (!m) return;
+  var code = { india: 'in', uae: 'ae', saudi: 'sa', usa: 'us' }[m[1]];
+  try { localStorage.setItem('forkstack_user_region', code); } catch (err) {}
+});
+</script>
 </body>
 </html>
