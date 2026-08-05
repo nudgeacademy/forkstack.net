@@ -91,6 +91,30 @@ tailwind.config = {
   </section>
 
   <div class="max-w-[1140px] mx-auto px-6 pt-16 pb-20 space-y-12">
+    <!-- Latest Release Announcement Banner -->
+    <div class="bg-gradient-to-r from-emerald-900 via-emerald-800 to-teal-900 text-white rounded-2xl p-6 sm:p-8 shadow-md flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="space-y-2 text-center md:text-left">
+        <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
+          <span class="px-3 py-0.5 bg-emerald-400/20 text-emerald-300 font-bold text-xs rounded-full border border-emerald-400/30">Latest Version</span>
+          <span class="font-headline font-bold text-xs text-emerald-200">v1.0.0-beta.1</span>
+        </div>
+        <h2 class="font-headline font-bold text-2xl text-white">ForkStack Desktop & Mobile Releases</h2>
+        <p class="font-body text-xs text-emerald-100/80 max-w-xl">
+          Download the latest Windows desktop setup packages for ForkStack POS and ERP, pre-built with thermal printer ESC/POS drivers, offline sync engine, and native performance.
+        </p>
+      </div>
+      <div class="flex flex-wrap items-center justify-center gap-3 shrink-0">
+        <a href="https://github.com/nudgeacademy/forkstack/releases/download/v1.0.0-beta.1/ForkStack.POS.Setup.1.0.0-beta.1.exe" class="btn btn--primary flex items-center gap-2 text-xs py-2.5 px-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl shadow transition-all">
+          <span class="material-symbols-outlined text-lg">download</span>
+          <span>Download POS Installer (.exe)</span>
+        </a>
+        <a href="https://github.com/nudgeacademy/forkstack/releases/download/v1.0.0-beta.1/ForkStack.ERP.Setup.1.0.0-beta.1.exe" class="btn flex items-center gap-2 text-xs py-2.5 px-4 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-xl shadow transition-all">
+          <span class="material-symbols-outlined text-lg">download</span>
+          <span>Download ERP Installer (.exe)</span>
+        </a>
+      </div>
+    </div>
+
     <!-- Symmetrical 2-Column Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
       
@@ -107,7 +131,7 @@ tailwind.config = {
                 <p class="font-body text-xs text-on-surface-variant">Billing, KDS & Table Management</p>
               </div>
             </div>
-            <span class="px-3 py-1 bg-emerald-100 text-emerald-800 font-bold text-xs rounded-full">v2.1.0</span>
+            <span class="px-3 py-1 bg-emerald-100 text-emerald-800 font-bold text-xs rounded-full">v1.0.0-beta.1</span>
           </div>
 
           <p class="font-body text-sm text-on-surface-variant leading-relaxed">
@@ -123,19 +147,15 @@ tailwind.config = {
         </div>
 
         <div class="space-y-3 pt-4 border-t border-border-subtle">
-          <p class="font-headline text-xs font-bold text-on-surface-variant uppercase tracking-wider">Download for</p>
+          <p class="font-headline text-xs font-bold text-on-surface-variant uppercase tracking-wider">Download Setup Files</p>
           <div class="flex flex-wrap gap-3">
-            <a href="#" class="btn btn--primary flex items-center gap-2 flex-1 justify-center min-w-[120px]">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M18.344 8.71c-.707 0-1.279.572-1.279 1.278v4.53a1.278 1.278 0 1 0 2.558 0v-4.53c0-.706-.572-1.278-1.279-1.278zm-12.688 0c-.707 0-1.279.572-1.279 1.278v4.53a1.278 1.278 0 1 0 2.558 0v-4.53A1.277 1.277 0 0 0 5.656 8.71zm8.889-3.835l.768-1.388a.161.161 0 0 0-.059-.218.162.162 0 0 0-.22.059l-.777 1.405a5.475 5.475 0 0 0-2.257-.476 5.475 5.475 0 0 0-2.257.476l-.777-1.405a.161.161 0 0 0-.22-.059.16.16 0 0 0-.059.218l.768 1.388C8.257 5.784 7.2 7.168 7.2 8.766h9.6c0-1.598-1.057-2.982-2.255-3.891zM9.8 7.337a.457.457 0 1 1 .002-.914.457.457 0 0 1-.002.914zm4.4 0a.457.457 0 1 1 .002-.914.457.457 0 0 1-.002.914zM7.2 9.135v6.883c0 .39.317.706.706.706h.706v2.192a1.278 1.278 0 1 0 2.556 0v-2.192h1.664v2.192a1.278 1.278 0 1 0 2.556 0v-2.192h.706a.706.706 0 0 0 .706-.706V9.135H7.2z"/></svg>
-              <span>Android</span>
-            </a>
-            <a href="#" class="btn btn--outline flex items-center gap-2 flex-1 justify-center min-w-[120px]">
+            <a href="https://github.com/nudgeacademy/forkstack/releases/download/v1.0.0-beta.1/ForkStack.POS.Setup.1.0.0-beta.1.exe" download class="btn btn--primary flex items-center gap-2 flex-1 justify-center min-w-[140px]">
               <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
-              <span>Windows</span>
+              <span>Windows (.exe)</span>
             </a>
-            <a href="#" class="btn btn--outline flex items-center gap-2 flex-1 justify-center min-w-[120px]">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>
-              <span>macOS</span>
+            <a href="https://github.com/nudgeacademy/forkstack/releases/tag/v1.0.0-beta.1" target="_blank" rel="noopener noreferrer" class="btn btn--outline flex items-center gap-2 flex-1 justify-center min-w-[140px]">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M18.344 8.71c-.707 0-1.279.572-1.279 1.278v4.53a1.278 1.278 0 1 0 2.558 0v-4.53c0-.706-.572-1.278-1.279-1.278zm-12.688 0c-.707 0-1.279.572-1.279 1.278v4.53a1.278 1.278 0 1 0 2.558 0v-4.53A1.277 1.277 0 0 0 5.656 8.71zm8.889-3.835l.768-1.388a.161.161 0 0 0-.059-.218.162.162 0 0 0-.22.059l-.777 1.405a5.475 5.475 0 0 0-2.257-.476 5.475 5.475 0 0 0-2.257.476l-.777-1.405a.161.161 0 0 0-.22-.059.16.16 0 0 0-.059.218l.768 1.388C8.257 5.784 7.2 7.168 7.2 8.766h9.6c0-1.598-1.057-2.982-2.255-3.891zM9.8 7.337a.457.457 0 1 1 .002-.914.457.457 0 0 1-.002.914zm4.4 0a.457.457 0 1 1 .002-.914.457.457 0 0 1-.002.914zM7.2 9.135v6.883c0 .39.317.706.706.706h.706v2.192a1.278 1.278 0 1 0 2.556 0v-2.192h1.664v2.192a1.278 1.278 0 1 0 2.556 0v-2.192h.706a.706.706 0 0 0 .706-.706V9.135H7.2z"/></svg>
+              <span>Android POS</span>
             </a>
           </div>
         </div>
@@ -154,7 +174,7 @@ tailwind.config = {
                 <p class="font-body text-xs text-on-surface-variant">Inventory, HR, Analytics & Catering</p>
               </div>
             </div>
-            <span class="px-3 py-1 bg-purple-100 text-purple-800 font-bold text-xs rounded-full">v2.1.0</span>
+            <span class="px-3 py-1 bg-purple-100 text-purple-800 font-bold text-xs rounded-full">v1.0.0-beta.1</span>
           </div>
 
           <p class="font-body text-sm text-on-surface-variant leading-relaxed">
@@ -170,15 +190,15 @@ tailwind.config = {
         </div>
 
         <div class="space-y-3 pt-4 border-t border-border-subtle">
-          <p class="font-headline text-xs font-bold text-on-surface-variant uppercase tracking-wider">Download for</p>
+          <p class="font-headline text-xs font-bold text-on-surface-variant uppercase tracking-wider">Download Setup Files</p>
           <div class="flex flex-wrap gap-3">
-            <a href="#" class="btn btn--outline flex items-center gap-2 flex-1 justify-center min-w-[120px]" style="border-color: #7d37ba; color: #7d37ba;">
+            <a href="https://github.com/nudgeacademy/forkstack/releases/download/v1.0.0-beta.1/ForkStack.ERP.Setup.1.0.0-beta.1.exe" download class="btn btn--outline flex items-center gap-2 flex-1 justify-center min-w-[140px]" style="border-color: #7d37ba; color: #7d37ba;">
               <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
-              <span>Windows</span>
+              <span>Windows (.exe)</span>
             </a>
-            <a href="#" class="btn btn--outline flex items-center gap-2 flex-1 justify-center min-w-[120px]" style="border-color: #7d37ba; color: #7d37ba;">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>
-              <span>macOS</span>
+            <a href="https://github.com/nudgeacademy/forkstack/releases/tag/v1.0.0-beta.1" target="_blank" rel="noopener noreferrer" class="btn btn--outline flex items-center gap-2 flex-1 justify-center min-w-[140px]" style="border-color: #7d37ba; color: #7d37ba;">
+              <span class="material-symbols-outlined text-lg">description</span>
+              <span>Release Notes</span>
             </a>
           </div>
         </div>
