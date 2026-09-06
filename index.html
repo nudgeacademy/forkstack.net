@@ -1,527 +1,347 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html lang="en">
 <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ForkStack — AI software for restaurants</title>
+<meta name="description" content="ForkStack builds AI software for restaurants: an assistant that answers from your own data across 43 read-only tools, on top of the till and the back office it runs on.">
+<link rel="canonical" href="https://forkstack.net/">
+<meta property="og:title" content="ForkStack — AI software for restaurants">
+<meta property="og:description" content="Ask your restaurant a question and get an answer built from your own data — with the charts and the figures behind it.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://forkstack.net/">
+<meta property="og:image" content="https://forkstack.net/assets/brand/tile-512.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="/assets/brand/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/brand/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/assets/brand/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-
-
-
-
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-
-
-
-<title>ForkStack - The POS & Restaurant ERP Platform</title>
-
-<!-- Fonts & Icons -->
-
-
-
-<!-- Tailwind CSS Engine & Custom Theme Config -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-tailwind.config = {
-    darkMode: "class",
-    theme: {
-        extend: {
-            "colors": {
-                "primary": "#006b2c",
-                "primary-container": "#00873a",
-                "on-primary": "#ffffff",
-                "surface": "#f8f9fa",
-                "surface-container": "#edeeef",
-                "surface-container-low": "#f3f4f5",
-                "surface-container-lowest": "#ffffff",
-                "on-surface": "#191c1d",
-                "on-surface-variant": "#3e4a3d",
-                "border-subtle": "#E5E7EB",
-                "success-light": "#DCFCE7",
-                "success-dark": "#15803D",
-                "purple-brand": "#7d37ba",
-                "purple-light": "#F3E8FF"
-            },
-            "fontFamily": {
-                "headline": ["Sora", "sans-serif"],
-                "body": ["Inter", "sans-serif"]
-            }
-        }
-    }
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "ForkStack",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Windows, macOS, Android, iOS, Web",
+  "softwareVersion": "1.3.2",
+  "url": "https://forkstack.net/",
+  "offers": [
+    { "@type": "Offer", "name": "Mini", "price": "55", "priceCurrency": "AED" },
+    { "@type": "Offer", "name": "Base", "price": "199", "priceCurrency": "AED" },
+    { "@type": "Offer", "name": "Core", "price": "250", "priceCurrency": "AED" },
+    { "@type": "Offer", "name": "Pro", "price": "650", "priceCurrency": "AED" }
+  ]
 }
 </script>
-<link rel="stylesheet" href="styles.css">
-<style>
-  .hero-gradient {
-      background: linear-gradient(135deg, rgba(248,249,250,0.9) 0%, rgba(220,252,231,0.35) 50%, rgba(243,232,255,0.2) 100%);
-  }
-  .anim-float {
-      animation: float 6s ease-in-out infinite;
-  }
-  @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-8px); }
-      100% { transform: translateY(0px); }
-  }
-</style>
 </head>
-<body class="bg-surface text-on-surface font-body antialiased overflow-x-hidden">
-<header class="nav" id="top">
-  <div class="nav__pill">
-    <a href="index.html" class="nav__brand" aria-label="ForkStack home">
-      <img src="assets/logo.png" alt="ForkStack logo" class="nav__logo" width="32" height="32">
-      <span class="nav__wordmark">ForkStack</span>
-    </a>
+<body>
 
-    <nav class="nav__links" id="navLinks" aria-label="Primary">
-        <a href="products.html" class="">Products</a>
-        <a href="features.html" class="">Features</a>
-        <a href="pricing.html" class="">Pricing</a>
-        <a href="download.html" class="">Download</a>
-        <a href="faq.html" class="">FAQ</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/"><img class="logo-on-paper" src="/assets/brand/logo.svg" alt="ForkStack" width="139" height="32"><img class="logo-on-dark" src="/assets/brand/logo-dark.svg" alt="" aria-hidden="true" width="139" height="32"></a>
+    <nav class="nav" aria-label="Primary">
+      <div class="nav-group" data-open="false">
+        <button type="button" aria-expanded="false">Product<svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button>
+        <div class="nav-menu">
+          <a href="/owner-app/">Owner App<span class="desc">The AI assistant, on your phone</span></a>
+          <a href="/erp/">ERP<span class="desc">The back office, with the assistant built in</span></a>
+          <a href="/pos/">POS<span class="desc">The till the numbers come from</span></a>
+        </div>
+      </div>
+      <a href="/demo/">Demo</a>
+      <a href="/pricing/">Pricing</a>
+      <a href="/download/">Download</a>
     </nav>
-
-    <div class="nav__actions">
-      <button onclick="document.getElementById('sales-modal').showModal()" class="btn btn--primary nav__cta">Start trial</button>
-    </div>
-
-    <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMobile">
-      <span></span><span></span><span></span>
-    </button>
-
-    <div class="nav__mobile" id="navMobile">
-        <a href="products.html" class="">Products</a>
-        <a href="features.html" class="">Features</a>
-        <a href="pricing.html" class="">Pricing</a>
-        <a href="download.html" class="">Download</a>
-        <a href="faq.html" class="">FAQ</a>
-      <hr>
-      <button onclick="document.getElementById('sales-modal').showModal()" class="btn btn--primary btn--block">Start trial</button>
+    <div class="header-cta">
+      <a class="btn btn-primary btn-sm" href="/contact/">Talk to sales</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Open menu">
+        <svg width="18" height="12" viewBox="0 0 18 12" aria-hidden="true"><path d="M0 1h18M0 6h18M0 11h18" stroke="currentColor" stroke-width="1.5"/></svg>
+      </button>
     </div>
   </div>
 </header>
-
-<main class="w-full flex-1">
-  <!-- Hero Section -->
-  <section class="relative min-h-screen flex items-center justify-center pt-28 md:pt-32 pb-16 lg:pb-20 px-4 sm:px-6 hero-gradient overflow-hidden">
-    <div class="max-w-[1140px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-      <!-- Left Content -->
-      <div class="lg:col-span-6 space-y-6">
-        <h1 class="font-headline text-4xl sm:text-5xl md:text-6xl font-extrabold text-on-surface tracking-tight leading-tight">
-          The Operating System for <span class="text-primary">Modern Restaurants</span>
-        </h1>
-        
-        <p class="font-body text-base md:text-lg text-on-surface-variant leading-relaxed">
-          Unify front-of-house billing, kitchen display screens (KDS), multi-outlet inventory, recipe ingredient deduction, and financial balance sheets in one real-time SaaS platform.
-        </p>
-
-        <!-- CTAs -->
-        <div class="flex flex-col sm:flex-row gap-4 pt-2 w-full sm:w-auto">
-          <button onclick="document.getElementById('sales-modal').showModal()" class="btn btn--primary">
-            <span>Start 14-Day Free Trial</span>
-            <span class="material-symbols-outlined text-lg">arrow_forward</span>
-          </button>
-          <a href="features.html" class="btn btn--outline">
-            <span class="material-symbols-outlined text-primary">apps</span>
-            <span>Explore 26+ Features</span>
-          </a>
-        </div>
-
-        <!-- Social Proof Avatars -->
-        <div class="pt-4 flex items-center gap-4 text-on-surface-variant">
-          <div class="flex -space-x-3">
-            <img class="w-10 h-10 rounded-full border-2 border-surface object-cover shadow-sm" alt="Restaurant Manager" src="assets/avatar-1.jpg"/>
-            <img class="w-10 h-10 rounded-full border-2 border-surface object-cover shadow-sm" alt="Head Chef" src="assets/avatar-2.jpg"/>
-            <img class="w-10 h-10 rounded-full border-2 border-surface object-cover shadow-sm" alt="Cafe Barista" src="assets/avatar-3.jpg"/>
-          </div>
-          <div class="text-xs font-medium">
-            <div class="flex items-center text-amber-500 gap-0.5">
-              <span class="material-symbols-outlined text-sm text-fill">star</span>
-              <span class="material-symbols-outlined text-sm text-fill">star</span>
-              <span class="material-symbols-outlined text-sm text-fill">star</span>
-              <span class="material-symbols-outlined text-sm text-fill">star</span>
-              <span class="material-symbols-outlined text-sm text-fill">star</span>
-              <span class="font-bold text-on-surface ml-1">4.9/5</span>
-            </div>
-            <p class="text-on-surface-variant">Trusted by 100+ Cafés, QSRs & Event Caterers</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right Interactive Mockup -->
-      <div class="lg:col-span-6 anim-float">
-        <div class="bg-surface-container-lowest rounded-2xl border border-border-subtle shadow-2xl overflow-hidden">
-          <!-- Top Window Header -->
-          <div class="bg-surface-container px-4 py-3 border-b border-border-subtle flex justify-between items-center">
-            <div class="flex gap-2">
-              <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
-              <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span>
-              <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
-            </div>
-            <div class="font-headline text-xs font-bold text-primary flex items-center gap-1.5">
-              
-              <span>LIVE POS HUB</span>
-            </div>
-          </div>
-          <!-- Mockup UI Body -->
-          <div class="p-6 bg-surface grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
-            <!-- Left Panel: Table Floor Grid -->
-            <div class="sm:col-span-2 space-y-4">
-              <div class="flex justify-between items-center">
-                <span class="font-headline font-bold text-on-surface text-sm">Floor Plan — Main Dining</span>
-                <span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold text-[10px] rounded-full">12 Active Tables</span>
-              </div>
-              <div class="grid grid-cols-3 gap-2">
-                <div class="p-3 bg-emerald-50 border border-emerald-300 rounded-xl text-center">
-                  <p class="font-bold text-emerald-900">Table 01</p>
-                  <p class="text-[10px] text-emerald-700">Bill Due</p>
-                  <p class="font-bold text-emerald-900 mt-1">₹1,240</p>
-                </div>
-                <div class="p-3 bg-amber-50 border border-amber-300 rounded-xl text-center">
-                  <p class="font-bold text-amber-900">Table 02</p>
-                  <p class="text-[10px] text-amber-700">Seated</p>
-                  <p class="font-bold text-amber-900 mt-1">KOT R-2</p>
-                </div>
-                <div class="p-3 bg-surface-container border border-border-subtle rounded-xl text-center">
-                  <p class="font-bold text-on-surface">Table 03</p>
-                  <p class="text-[10px] text-on-surface-variant">Available</p>
-                  <p class="font-bold text-on-surface-variant mt-1">Ready</p>
-                </div>
-                <div class="p-3 bg-emerald-50 border border-emerald-300 rounded-xl text-center">
-                  <p class="font-bold text-emerald-900">Table 04</p>
-                  <p class="text-[10px] text-emerald-700">Bill Due</p>
-                  <p class="font-bold text-emerald-900 mt-1">₹850</p>
-                </div>
-                <div class="p-3 bg-surface-container border border-border-subtle rounded-xl text-center">
-                  <p class="font-bold text-on-surface">Table 05</p>
-                  <p class="text-[10px] text-on-surface-variant">Available</p>
-                  <p class="font-bold text-on-surface-variant mt-1">Ready</p>
-                </div>
-                <div class="p-3 bg-amber-50 border border-amber-300 rounded-xl text-center">
-                  <p class="font-bold text-amber-900">Table 06</p>
-                  <p class="text-[10px] text-amber-700">In Kitchen</p>
-                  <p class="font-bold text-amber-900 mt-1">KOT R-1</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Right Panel: Live Order Ticket -->
-            <div class="bg-surface-container-lowest border border-border-subtle rounded-xl p-4 flex flex-col justify-between">
-              <div>
-                <div class="flex justify-between items-center pb-2 border-b border-border-subtle mb-2">
-                  <span class="font-bold text-on-surface">Order #1042</span>
-                </div>
-                <div class="space-y-2 text-[11px]">
-                  <div class="flex justify-between">
-                    <span>2x Chicken Biriyani</span>
-                    <span class="font-bold">₹560</span>
-                  </div>
-                  <div class="flex justify-between">
-                    <span>1x Mint Mojito</span>
-                    <span class="font-bold">₹140</span>
-                  </div>
-                  <div class="flex justify-between">
-                    <span>2x Garlic Naan</span>
-                    <span class="font-bold">₹120</span>
-                  </div>
-                </div>
-              </div>
-              <div class="pt-3 border-t border-border-subtle mt-3">
-                <div class="flex justify-between font-bold text-sm mb-3">
-                  <span>Total</span>
-                  <span class="text-primary">₹820</span>
-                </div>
-                <button onclick="document.getElementById('sales-modal').showModal()" class="w-full py-2 bg-primary text-on-primary font-bold rounded-lg text-center">Quick Checkout</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Social Proof Venue Chips -->
-  <section class="py-6 bg-surface-container-low border-y border-border-subtle">
-    <div class="max-w-[1140px] mx-auto px-6 flex flex-wrap items-center justify-center gap-4 md:gap-8">
-      <span class="font-headline text-xs font-bold text-on-surface-variant tracking-wider uppercase">Built For</span>
-      <span class="px-4 py-1.5 bg-surface-container-lowest border border-border-subtle rounded-full text-xs font-semibold text-on-surface shadow-sm">Cafés & Bakeries</span>
-      <span class="px-4 py-1.5 bg-surface-container-lowest border border-border-subtle rounded-full text-xs font-semibold text-on-surface shadow-sm">Cloud Kitchens</span>
-      <span class="px-4 py-1.5 bg-surface-container-lowest border border-border-subtle rounded-full text-xs font-semibold text-on-surface shadow-sm">Dine-In Restaurants</span>
-      <span class="px-4 py-1.5 bg-surface-container-lowest border border-border-subtle rounded-full text-xs font-semibold text-on-surface shadow-sm">QSR & Food Courts</span>
-      <span class="px-4 py-1.5 bg-surface-container-lowest border border-border-subtle rounded-full text-xs font-semibold text-on-surface shadow-sm">Franchise Chains</span>
-      <span class="px-4 py-1.5 bg-surface-container-lowest border border-border-subtle rounded-full text-xs font-semibold text-on-surface shadow-sm">Event & Catering</span>
-    </div>
-  </section>
-
-  <!-- Animated Metric Stats Grid -->
-  <section class="py-16 md:py-24 px-6 bg-surface-container-lowest">
-    <div class="max-w-[1140px] mx-auto">
-      <div class="text-center max-w-2xl mx-auto mb-12">
-        <h2 class="font-headline text-3xl font-extrabold text-on-surface">Engineered for High-Volume Rushes</h2>
-        <p class="font-body text-base text-on-surface-variant mt-2">Proven scalability designed to keep billing instant even under heavy dining peak hours.</p>
-      </div>
-
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-        <div class="p-6 bg-surface border border-border-subtle rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-          <p class="font-headline text-4xl md:text-5xl font-extrabold text-primary mb-2">60+</p>
-          <p class="font-body text-xs md:text-sm font-semibold text-on-surface">Database Models</p>
-          <p class="font-body text-[11px] text-on-surface-variant mt-1">Strict multi-tenant isolation</p>
-        </div>
-        <div class="p-6 bg-surface border border-border-subtle rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-          <p class="font-headline text-4xl md:text-5xl font-extrabold text-primary mb-2">&lt;1s</p>
-          <p class="font-body text-xs md:text-sm font-semibold text-on-surface">WebSocket Sync</p>
-          <p class="font-body text-[11px] text-on-surface-variant mt-1">Socket.IO real-time data</p>
-        </div>
-        <div class="p-6 bg-surface border border-border-subtle rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-          <p class="font-headline text-4xl md:text-5xl font-extrabold text-primary mb-2">100%</p>
-          <p class="font-body text-xs md:text-sm font-semibold text-on-surface">Offline Capable</p>
-          <p class="font-body text-[11px] text-on-surface-variant mt-1">IndexedDB auto-sync engine</p>
-        </div>
-        <div class="p-6 bg-surface border border-border-subtle rounded-2xl shadow-sm hover:shadow-md transition-shadow">
-          <p class="font-headline text-4xl md:text-5xl font-extrabold text-primary mb-2">∞</p>
-          <p class="font-body text-xs md:text-sm font-semibold text-on-surface">Scalable Outlets</p>
-          <p class="font-body text-[11px] text-on-surface-variant mt-1">Unlimited central kitchens</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Side-by-Side Product Showcase (POS vs ERP) -->
-  <section class="py-16 md:py-24 px-6 bg-surface">
-    <div class="max-w-[1140px] mx-auto space-y-16">
-      <!-- Showcase 1: ForkStack POS -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <div class="space-y-6">
-          <span class="inline-block px-3 py-1 bg-emerald-100 text-emerald-800 font-bold text-xs rounded-full uppercase tracking-wider">Front-of-House</span>
-          <h2 class="font-headline text-3xl md:text-4xl font-bold text-on-surface">ForkStack POS</h2>
-          <p class="font-body text-base text-on-surface-variant">Designed for cashier speed and waiter accuracy. Tap-to-add billing, visual floor grid management, kitchen display tickets, and split checkouts.</p>
-          
-          <ul class="space-y-3 font-body text-sm text-on-surface">
-            <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary text-xl">check_circle</span> Table Transfer, Merge & Swap across floors</li>
-            <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary text-xl">check_circle</span> Kitchen Display System (KDS) with 15-min timer warnings</li>
-            <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary text-xl">check_circle</span> Split checkout (Cash, Card, UPI) with discount calculator</li>
-            <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary text-xl">check_circle</span> 100% Offline-first billing with thermal printer integration</li>
-          </ul>
-
-          <div class="pt-2">
-            <a href="products.html" class="inline-flex items-center gap-2 font-headline text-sm font-bold text-primary hover:underline">
-              <span>View POS Capabilities</span>
-              <span class="material-symbols-outlined text-base">arrow_forward</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="bg-gradient-to-br from-emerald-100/70 via-teal-50/50 to-green-100/60 border border-emerald-200/60 rounded-2xl p-6 shadow-sm flex items-center justify-center">
-  <img src="assets/pos-956.webp" alt="Essae POS-956 Billing Terminal Machine" class="max-h-[280px] w-auto object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+<div class="mobile-nav" data-open="false">
+  <div class="wrap">
+    <a href="/owner-app/">Owner App</a>
+    <a href="/erp/">ERP</a>
+    <a href="/pos/">POS</a>
+    <a href="/demo/">Demo</a>
+    <a href="/pricing/">Pricing</a>
+    <a href="/download/">Download</a>
+    <a class="btn btn-primary" href="/contact/">Talk to sales</a>
+  </div>
 </div>
-      </div>
 
-      <!-- Showcase 2: Restaurant ERP -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <div class="order-2 md:order-1 bg-surface-container-lowest border border-border-subtle rounded-2xl p-4 shadow-lg">
-          <img src="assets/erp-dashboard.jpg" alt="ForkStack ERP Dashboard" class="w-full h-80 object-cover rounded-xl shadow-sm"/>
+<main>
+
+  <!-- 1 · Hero -->
+  <section>
+    <div class="wrap">
+      <div class="split">
+        <div class="col-7">
+          <h1>AI that runs on your restaurant's own numbers.</h1>
         </div>
-
-        <div class="order-1 md:order-2 space-y-6">
-          <span class="inline-block px-3 py-1 bg-purple-light text-purple-brand font-bold text-xs rounded-full uppercase tracking-wider">Back-Office & Admin</span>
-          <h2 class="font-headline text-3xl md:text-4xl font-bold text-on-surface">Restaurant ERP & AI Assistant</h2>
-          <p class="font-body text-base text-on-surface-variant">Control recipe food costs, automate ingredient stock depletion, manage vendor purchase orders, and ask natural-language questions to your AI Data Assistant.</p>
-          
-          <ul class="space-y-3 font-body text-sm text-on-surface">
-            <li class="flex items-center gap-3"><span class="material-symbols-outlined text-purple-brand text-xl">check_circle</span> Recipe BOM auto-deduction on every sale</li>
-            <li class="flex items-center gap-3"><span class="material-symbols-outlined text-purple-brand text-xl">check_circle</span> AI Data Assistant with interactive chart drill-downs</li>
-            <li class="flex items-center gap-3"><span class="material-symbols-outlined text-purple-brand text-xl">check_circle</span> Vendor Purchase Orders & Inter-Outlet Stock Transfers</li>
-            <li class="flex items-center gap-3"><span class="material-symbols-outlined text-purple-brand text-xl">check_circle</span> Event Catering pipeline with P&L profit margin tracking</li>
-          </ul>
-
-          <div class="pt-2">
-            <a href="products.html" class="inline-flex items-center gap-2 font-headline text-sm font-bold text-purple-brand hover:underline">
-              <span>View ERP Capabilities</span>
-              <span class="material-symbols-outlined text-base">arrow_forward</span>
-            </a>
+        <div class="col-5 stack-lg pad-top">
+          <p class="lead">Ask the business a question. Get the answer, the chart, and the figures behind it.</p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="/demo/">See the demo</a>
+            <a class="link-arrow" href="/contact/">Talk to sales</a>
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- 9 Feature Cards Grid -->
-  <section class="py-16 md:py-24 px-6 bg-surface-container-lowest">
-    <div class="max-w-[1140px] mx-auto">
-      <div class="text-center max-w-2xl mx-auto mb-16">
-        <span class="inline-block px-3 py-1 bg-success-light text-success-dark font-bold text-xs rounded-full uppercase tracking-wider mb-2">Core Capabilities</span>
-        <h2 class="font-headline text-3xl font-extrabold text-on-surface">Everything Built Standard</h2>
+      <div class="section-body hero-shot" data-hero-shot>
+        <div class="frame">
+          <picture>
+            <source srcset="/assets/screens/14-bill-printed-due.webp" type="image/webp">
+            <img src="/assets/screens/14-bill-printed-due.png" width="1366" height="860" alt="ForkStack POS order screen after the bill has been printed, with the order marked DUE and awaiting payment.">
+          </picture>
+          <div class="overlay">
+            <p class="eyebrow">Recorded once, completely</p>
+            <h2>Every figure the assistant reports traces back to a screen like this.</h2>
+          </div>
+        </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="p-6 bg-surface border border-border-subtle rounded-2xl hover:shadow-md transition-shadow space-y-3">
-          <span class="material-symbols-outlined text-primary text-3xl">sync</span>
-          <h3 class="font-headline font-bold text-lg text-on-surface">Real-Time Sync</h3>
-          <p class="font-body text-xs text-on-surface-variant leading-relaxed">Socket.IO WebSocket propagation updates kitchen screens and cashier terminals in under 1 second.</p>
-        </div>
-
-        <div class="p-6 bg-surface border border-border-subtle rounded-2xl hover:shadow-md transition-shadow space-y-3">
-          <span class="material-symbols-outlined text-primary text-3xl">soup_kitchen</span>
-          <h3 class="font-headline font-bold text-lg text-on-surface">Kitchen Display (KDS)</h3>
-          <p class="font-body text-xs text-on-surface-variant leading-relaxed">Live order ticket cards with prep timer warnings (≥15 min) and automated station status updates.</p>
-        </div>
-
-        <div class="p-6 bg-surface border border-border-subtle rounded-2xl hover:shadow-md transition-shadow space-y-3">
-          <span class="material-symbols-outlined text-primary text-3xl">table_restaurant</span>
-          <h3 class="font-headline font-bold text-lg text-on-surface">Table Operations</h3>
-          <p class="font-body text-xs text-on-surface-variant leading-relaxed">Visual floor plan editor with table transfer, bill merge, and seat swap controls across dining areas.</p>
-        </div>
-
-        <div class="p-6 bg-surface border border-border-subtle rounded-2xl hover:shadow-md transition-shadow space-y-3">
-          <span class="material-symbols-outlined text-primary text-3xl">inventory_2</span>
-          <h3 class="font-headline font-bold text-lg text-on-surface">Recipe BOM Deduction</h3>
-          <p class="font-body text-xs text-on-surface-variant leading-relaxed">Bill-of-Materials automatically deducts raw ingredients from inventory upon every registered order.</p>
-        </div>
-
-        <div class="p-6 bg-surface border border-border-subtle rounded-2xl hover:shadow-md transition-shadow space-y-3">
-          <span class="material-symbols-outlined text-primary text-3xl">payments</span>
-          <h3 class="font-headline font-bold text-lg text-on-surface">Split Payments</h3>
-          <p class="font-body text-xs text-on-surface-variant leading-relaxed">Checkout orders split across Cash, Card, and UPI with percentage or fixed discount calculations.</p>
-        </div>
-
-        <div class="p-6 bg-surface border border-border-subtle rounded-2xl hover:shadow-md transition-shadow space-y-3">
-          <span class="material-symbols-outlined text-primary text-3xl">wifi_off</span>
-          <h3 class="font-headline font-bold text-lg text-on-surface">Offline Billing Engine</h3>
-          <p class="font-body text-xs text-on-surface-variant leading-relaxed">IndexedDB outbox queue lets cashiers generate bills offline and sync automatically upon reconnection.</p>
-        </div>
-
-        <div class="p-6 bg-surface border border-border-subtle rounded-2xl hover:shadow-md transition-shadow space-y-3">
-          <span class="material-symbols-outlined text-purple-brand text-3xl">psychology</span>
-          <h3 class="font-headline font-bold text-lg text-on-surface">AI Data Assistant</h3>
-          <p class="font-body text-xs text-on-surface-variant leading-relaxed">Ask natural language questions to generate instant bar/pie charts and store performance insights.</p>
-        </div>
-
-        <div class="p-6 bg-surface border border-border-subtle rounded-2xl hover:shadow-md transition-shadow space-y-3">
-          <span class="material-symbols-outlined text-purple-brand text-3xl">event_available</span>
-          <h3 class="font-headline font-bold text-lg text-on-surface">Event Catering Pipeline</h3>
-          <p class="font-body text-xs text-on-surface-variant leading-relaxed">Track catering requests from inquiry to completion with equipment, vehicle, and profit margin analysis.</p>
-        </div>
-
-        <div class="p-6 bg-surface border border-border-subtle rounded-2xl hover:shadow-md transition-shadow space-y-3">
-          <span class="material-symbols-outlined text-primary text-3xl">print</span>
-          <h3 class="font-headline font-bold text-lg text-on-surface">Thermal Printers</h3>
-          <p class="font-body text-xs text-on-surface-variant leading-relaxed">Native ESC/POS thermal printing support for 80mm & 58mm network, USB, and Bluetooth devices.</p>
-        </div>
+      <div class="section-body stat-row">
+        <div><div class="figure">43</div><div class="label">Read-only AI tools</div></div>
+        <div><div class="figure">2</div><div class="label">Surfaces with the assistant</div></div>
+        <div><div class="figure">9</div><div class="label">ERP modules it reads</div></div>
+        <div><div class="figure">0</div><div class="label">Tools that can write</div></div>
       </div>
     </div>
   </section>
 
-  <!-- CTA Conversion Banner -->
-  <section class="py-16 md:py-20 px-6 bg-primary text-on-primary text-center">
-    <div class="max-w-3xl mx-auto space-y-6">
-      <h2 class="font-headline text-3xl md:text-5xl font-extrabold tracking-tight">Ready to Upgrade Your Restaurant Operations?</h2>
-      <p class="font-body text-base md:text-lg opacity-90">Join over 100+ outlets scaling faster with ForkStack POS & ERP.</p>
-      <div class="pt-4 flex justify-center">
-        <button onclick="document.getElementById('sales-modal').showModal()" class="font-headline text-sm font-bold bg-surface-container-lowest text-primary px-8 py-4 rounded-full hover:bg-surface transition-colors shadow-lg">
-          Start 14-Day Free Trial
-        </button>
+  <!-- 2 · The assistant -->
+  <section class="hairline-top">
+    <div class="wrap split">
+      <div class="col-5 stack-lg">
+        <p class="eyebrow">The assistant</p>
+        <h2>Ask the business a question.</h2>
+        <p class="muted">Sales, money, stock, people, events, operations — 43 read-only tools across the lot.</p>
+        <p><a class="link-arrow" href="/owner-app/">See the full list</a></p>
+      </div>
+      <div class="col-7 pad-top">
+        <ul class="arrow-list">
+          <li>Which outlet had the worst food cost last month?</li>
+          <li>Who sold the most on Friday, and what did they sell?</li>
+          <li>Show me everything waiting for my approval.</li>
+          <li>What is running low across all outlets?</li>
+          <li>How did this month compare with the last one?</li>
+        </ul>
       </div>
     </div>
   </section>
+
+  <!-- 3 · The guarantee -->
+  <section class="dark">
+    <div class="wrap split">
+      <div class="col-5 stack-lg">
+        <p class="eyebrow eyebrow-accent">How it stays right</p>
+        <h2>Every number came from the server.</h2>
+        <p class="muted">The model picks the tools and writes the explanation. It does not do the arithmetic, and it cannot change what it reads.</p>
+      </div>
+      <div class="col-7 pad-top">
+        <ul class="grid-facts">
+          <li><span class="k">43 reads, 0 writes</span><span class="v">No tool creates, edits or deletes a record.</span></li>
+          <li><span class="k">Server-side arithmetic</span><span class="v">Totals and variances are computed before the model sees them.</span></li>
+          <li><span class="k">20 rows to the model, 200 to you</span><span class="v">Trimmed lists are flagged, so a partial count is never a total.</span></li>
+          <li><span class="k">Draws nothing, not zero</span><span class="v">A block with no data renders nothing at all.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · The four surfaces -->
+  <section>
+    <div class="wrap">
+      <div class="split">
+        <div class="col-5"><h2>The software underneath the answers.</h2></div>
+        <div class="col-7 pad-top"><p class="muted">An assistant is only as good as the system that records the day. We build that too — one database, one login, four surfaces.</p></div>
+      </div>
+      <div class="section-body row-4">
+        <a class="card stack" href="/owner-app/">
+          <p class="eyebrow">Phone</p>
+          <h3>Owner App</h3>
+          <p class="small">The assistant, a live dashboard and payroll. iOS and Android.</p>
+          <span class="link-arrow">Explore</span>
+        </a>
+        <a class="card stack" href="/erp/">
+          <p class="eyebrow">Back office</p>
+          <h3>ERP</h3>
+          <p class="small">Financials, procurement, payroll, events — and the assistant.</p>
+          <span class="link-arrow">Explore</span>
+        </a>
+        <a class="card stack" href="/pos/">
+          <p class="eyebrow">Till</p>
+          <h3>POS</h3>
+          <p class="small">Floor plan, KOT rounds, split tenders, cash-up.</p>
+          <span class="link-arrow">Explore</span>
+        </a>
+        <a class="card stack" href="/pos/#manager">
+          <p class="eyebrow">Floor</p>
+          <h3>Manager Portal</h3>
+          <p class="small">Staff, drawer, stock, day close. In every POS install.</p>
+          <span class="link-arrow">Explore</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · Complete data -->
+  <section class="hairline-top">
+    <div class="wrap">
+      <div class="split">
+        <div class="col-5 stack-lg">
+          <p class="eyebrow">Complete data</p>
+          <h2>An answer is only as good as the day behind it.</h2>
+        </div>
+        <div class="col-7 stack pad-top">
+          <p class="muted">The till does not drop bills when the connection does. Each device writes locally and drains an outbox when the link returns — nothing lost, nothing settled twice.</p>
+          <p><a class="link-arrow" href="/pos/#offline">How the sync protocol works</a></p>
+        </div>
+      </div>
+
+      <div class="section-body diagram">
+        <svg viewBox="0 0 1160 180" width="1160" height="180" role="img" aria-label="Flow diagram: a user action is written locally and the interface updates immediately; the write also enters an outbox, which posts to the sync endpoint when the connection returns, and the server applies each mutation exactly once.">
+          <g fill="none" stroke="#D0CBC0" stroke-width="1">
+            <rect x="0.5" y="6.5" width="300" height="52" rx="6"/>
+            <rect x="430.5" y="6.5" width="300" height="52" rx="6"/>
+            <rect x="860.5" y="6.5" width="299" height="52" rx="6"/>
+            <rect x="0.5" y="112.5" width="300" height="60" rx="6"/>
+            <rect x="430.5" y="112.5" width="300" height="60" rx="6"/>
+            <rect x="860.5" y="112.5" width="299" height="60" rx="6"/>
+          </g>
+          <g fill="#191918" font-family="Inter, sans-serif" font-size="14" font-weight="500">
+            <text x="150" y="37" text-anchor="middle">User action</text>
+            <text x="580" y="37" text-anchor="middle">Local write</text>
+            <text x="1010" y="37" text-anchor="middle">UI updates immediately</text>
+            <text x="150" y="139" text-anchor="middle">Outbox</text>
+            <text x="1010" y="139" text-anchor="middle">Server applies once</text>
+          </g>
+          <g font-family="'JetBrains Mono', monospace" font-size="13" fill="#191918">
+            <text x="580" y="139" text-anchor="middle">POST /api/sync/push</text>
+          </g>
+          <g fill="#8E8B82" font-family="'JetBrains Mono', monospace" font-size="12">
+            <text x="150" y="158" text-anchor="middle">writes queued in order</text>
+            <text x="580" y="158" text-anchor="middle">when the link returns</text>
+            <text x="1010" y="158" text-anchor="middle">idempotent by mutation id</text>
+          </g>
+          <g stroke="#D0CBC0" stroke-width="1" fill="none">
+            <path d="M302 32h122"/>
+            <path d="M732 32h122"/>
+            <path d="M580 60v26H150v20"/>
+            <path d="M732 142h122"/>
+          </g>
+          <g stroke="#107C41" stroke-width="1.4" fill="none"><path d="M302 142h122"/></g>
+          <g fill="#D0CBC0">
+            <path d="M429 32l-8-4v8z"/><path d="M859 32l-8-4v8z"/>
+            <path d="M150 111l-4-8h8z"/><path d="M859 142l-8-4v8z"/>
+          </g>
+          <path d="M429 142l-8-4v8z" fill="#107C41"/>
+        </svg>
+      </div>
+
+      <ul class="grid-facts cols-3 section-body">
+        <li><span class="k">Nothing settles twice</span><span class="v">Every mutation carries a device-generated id, recorded with its effects in one transaction.</span></li>
+        <li><span class="k">Tenders are never netted</span><span class="v">Cash, card, UPI and each delivery platform keep their own line to the report.</span></li>
+        <li><span class="k">One business day</span><span class="v">A venue closing at 3am gets one day, one drawer and one close.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 6 · Reconciliation -->
+  <section class="hairline-top">
+    <div class="wrap split">
+      <div class="col-5 stack-lg">
+        <p class="eyebrow">Cash-up</p>
+        <h2>Short 200 and over 200 is not a clean day.</h2>
+        <p class="muted">It is two problems that cancel in a total. Each tender is counted and reported on its own line.</p>
+      </div>
+      <div class="col-7 pad-top">
+        <figure>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th>Tender</th><th class="num">Expected</th><th class="num">Counted</th><th class="num">Variance</th></tr></thead>
+              <tbody>
+                <tr><td>Cash</td><td class="num">4,820.00</td><td class="num">4,620.00</td><td class="num" style="color:var(--danger)">−200.00</td></tr>
+                <tr><td>Card</td><td class="num">12,340.00</td><td class="num">12,540.00</td><td class="num" style="color:var(--info)">+200.00</td></tr>
+                <tr><td>Talabat</td><td class="num">3,110.00</td><td class="num">3,110.00</td><td class="num">0.00</td></tr>
+                <tr><td>Shortfalls</td><td class="num"></td><td class="num"></td><td class="num" style="color:var(--danger)">−200.00</td></tr>
+                <tr><td>Overages</td><td class="num"></td><td class="num"></td><td class="num" style="color:var(--info)">+200.00</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <figcaption>Cash-up, as printed on the Z report. Figures illustrative.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · Close -->
+  <section class="dark">
+    <div class="wrap split" style="align-items:center">
+      <div class="col-7 stack">
+        <h2>See it run before you decide.</h2>
+        <p class="muted">Twenty-five real screens, first order to day close. No sign-up, no video.</p>
+      </div>
+      <div class="col-5">
+        <div class="btn-row" style="justify-content:flex-end">
+          <a class="btn btn-primary" href="/demo/">Open the demo</a>
+          <a class="btn btn-secondary" href="/contact/">Talk to sales</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </main>
 
-<!-- Global Footer -->
-<footer class="bg-surface-container-highest dark:bg-inverse-surface border-t border-border-subtle py-16 px-6 mt-auto">
-<div class="max-w-[1140px] mx-auto grid grid-cols-1 md:grid-cols-5 gap-8">
-  <div class="md:col-span-2 space-y-4">
-    <a class="flex items-center gap-2.5 font-headline text-xl font-extrabold text-on-surface" href="index.html">
-      <img src="assets/logo.png" alt="ForkStack logo" class="w-8 h-8 rounded-full object-cover">
-      <span>ForkStack</span>
-    </a>
-    <p class="font-body text-sm text-on-surface-variant max-w-sm leading-relaxed">The full-stack restaurant OS. Unifying POS billing, Kitchen Displays, Multi-Outlet Inventory, AI Analytics, and Catering management for modern venues.</p>
-    <div class="flex items-center gap-3 pt-2">
-      <span class="inline-flex items-center gap-2 px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full">
-        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block"></span>
-        System Status: 100% Operational
-      </span>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h5>Product</h5>
+        <ul>
+          <li><a href="/owner-app/">Owner App</a></li>
+          <li><a href="/erp/">ERP</a></li>
+          <li><a href="/pos/">POS</a></li>
+          <li><a href="/pricing/">Pricing</a></li>
+          <li><a href="/download/">Download</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <ul>
+          <li><a href="/contact/">Contact</a></li>
+          <li><a href="/legal/privacy/">Privacy</a></li>
+          <li><a href="/legal/terms/">Terms</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Support</h5>
+        <ul>
+          <li><a href="/download/#requirements">System requirements</a></li>
+          <li><a href="/download/#install">Install notes</a></li>
+          <li><a href="/contact/">Get help</a></li>
+        </ul>
+      </div>
+      <div>
+        <a class="brand" href="/"><img src="/assets/brand/logo.svg" alt="ForkStack" width="139" height="32"></a>
+        <p class="small block">AI software for restaurants. The assistant, the till and the back office on one system.</p>
+        <p class="mono small" style="margin-top:8px">Suite 1.3.2</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ForkStack</span>
+      <span class="mono">AED · United Arab Emirates</span>
     </div>
   </div>
-  <div>
-    <h4 class="font-headline text-xs font-bold text-on-surface uppercase tracking-wider mb-4">Products</h4>
-    <ul class="space-y-2.5 font-body text-sm text-on-surface-variant">
-      <li><a class="hover:text-primary transition-colors" href="products.html">POS Terminal</a></li>
-      <li><a class="hover:text-primary transition-colors" href="products.html">Restaurant ERP Suite</a></li>
-      <li><a class="hover:text-primary transition-colors" href="features.html">Kitchen Display (KDS)</a></li>
-      <li><a class="hover:text-primary transition-colors" href="download.html">Android POS App (.apk)</a></li>
-      <li><a class="hover:text-primary transition-colors" href="download.html">Desktop POS & ERP</a></li>
-    </ul>
-  </div>
-  <div>
-    <h4 class="font-headline text-xs font-bold text-on-surface uppercase tracking-wider mb-4">Platform</h4>
-    <ul class="space-y-2.5 font-body text-sm text-on-surface-variant">
-      <li><a class="hover:text-primary transition-colors" href="features.html">All 26+ Features</a></li>
-      <li><a class="hover:text-primary transition-colors" href="pricing.html">Transparent Pricing</a></li>
-      <li><a class="hover:text-primary transition-colors" href="download.html">Download Center</a></li>
-    </ul>
-  </div>
-  <div>
-    <h4 class="font-headline text-xs font-bold text-on-surface uppercase tracking-wider mb-4">Support & Help</h4>
-    <ul class="space-y-2.5 font-body text-sm text-on-surface-variant">
-      <li><a class="hover:text-primary transition-colors" href="faq.html">Help & FAQ</a></li>
-      <li><a class="hover:text-primary transition-colors" href="faq.html">Hardware Compatibility</a></li>
-      <li><a class="hover:text-primary transition-colors" href="#" onclick="document.getElementById('sales-modal').showModal(); return false;">Contact Sales Team</a></li>
-      <li><a class="hover:text-primary transition-colors" href="faq.html">Documentation</a></li>
-    </ul>
-  </div>
-</div>
-<div class="max-w-[1140px] mx-auto mt-12 pt-8 border-t border-border-subtle flex flex-col sm:flex-row justify-between items-center text-xs text-on-surface-variant gap-4">
-  <p>&copy; 2026 ForkStack Platform. All rights reserved.</p>
-  <div class="flex gap-6">
-    <a class="hover:text-primary transition-colors" href="faq.html">Privacy Policy</a>
-    <a class="hover:text-primary transition-colors" href="faq.html">Terms of Service</a>
-    <a class="hover:text-primary transition-colors" href="faq.html">Security & Audit</a>
-  </div>
-</div>
 </footer>
 
-<!-- Sales Inquiry Modal -->
-<dialog id="sales-modal" class="modal">
-  <div class="modal__inner">
-    <div class="modal__header">
-      <h3>Talk to sales</h3>
-      <button onclick="document.getElementById('sales-modal').close()" class="modal__close">&times;</button>
-    </div>
-    <form action="https://formsubmit.co/asifalikp3210@gmail.com" method="POST" class="modal__form">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_subject" value="New ForkStack Sales Inquiry!">
-      <label>
-        <span>Name</span>
-        <input type="text" name="name" required placeholder="Your name">
-      </label>
-      <label>
-        <span>Email</span>
-        <input type="email" name="email" required placeholder="name@company.com">
-      </label>
-      <label>
-        <span>Phone Number</span>
-        <input type="tel" name="phone" required placeholder="+91 99999 99999">
-      </label>
-      <label>
-        <span>Number of Outlets</span>
-        <select name="outlets" required>
-          <option value="" disabled selected>Select an option</option>
-          <option value="1">1 (Single Outlet)</option>
-          <option value="2-5">2 to 5</option>
-          <option value="6-20">6 to 20</option>
-          <option value="21+">21 or more</option>
-        </select>
-      </label>
-      <label>
-        <span>Message</span>
-        <textarea name="message" rows="4" required placeholder="Tell us about your requirements..."></textarea>
-      </label>
-      <button type="submit" class="btn btn--primary btn--block">Send message</button>
-    </form>
-  </div>
-</dialog>
-
-<script src="script.js"></script>
-
+<script src="/site.js" defer></script>
 </body>
 </html>
