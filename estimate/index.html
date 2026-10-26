@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/brand/favicon.ico">
+<title>ForkStack Estimate Generator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --paper:          #FAF8F5;
+    --paper-elevated: #F5F2EC;
+    --paper-subtle:   #EFECE4;
+    --surface:        #FFFFFF;
+    --hairline:       #E6E2DA;
+    --hairline-strong:#D0CBC0;
+
+    --ink:            #191918;
+    --ink-secondary:  #2B2A27;
+    --ink-muted:      #706E68;
+    --ink-tertiary:   #8E8B82;
+
+    --accent:         #107C41;
+    --accent-hover:   #0B6434;
+    --accent-tint:    #E8F2EC;
+
+    --success:        #3B6E4C;
+    --warning:        #B87528;
+    --warning-bg:     #FCF7ED;
+    --danger:         #B33E2B;
+    --danger-bg:      #FBEEEC;
+    --info:           #3E5C76;
+
+    --serif: 'Newsreader', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+    --sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --mono:  'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+    --radius:12px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:var(--sans);
+    background:var(--paper);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  header.app-header{
+    background:var(--paper);
+    border-bottom:1px solid var(--hairline-strong);
+    padding:16px 28px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:14px;
+  }
+  header.app-header .brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  header.app-header .brand img{height:26px;width:auto;display:block;}
+  header.app-header .brand .divider{width:1px;height:22px;background:var(--hairline-strong);}
+  header.app-header .brand .tool-label{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--ink-tertiary);
+  }
+  .actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+  button, a.btn-link{
+    font:inherit;cursor:pointer;border-radius:9999px;border:1px solid transparent;
+    padding:9px 18px;font-size:13px;font-weight:600;transition:filter .15s ease, transform .05s ease, background .15s ease;
+    text-decoration:none;display:inline-flex;align-items:center;justify-content:center;
+  }
+  button:active, a.btn-link:active{transform:translateY(1px);}
+  .btn-primary{background:var(--accent);color:#fff;}
+  .btn-primary:hover{background:var(--accent-hover);}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--hairline-strong);}
+  .btn-ghost:hover{background:var(--paper-elevated);}
+  .btn-add{background:var(--accent-tint);color:var(--accent-hover);border-color:transparent;border-radius:8px;}
+  .btn-add:hover{background:#daf0e6;}
+  .row-remove{
+    background:none;border:none;color:var(--ink-tertiary);font-size:16px;cursor:pointer;
+    padding:2px;line-height:1;border-radius:5px;
+  }
+  .row-remove:hover{background:var(--danger-bg);color:var(--danger);}
+
+  .layout{
+    display:grid;
+    grid-template-columns:minmax(360px,460px) 1fr;
+    gap:22px;
+    padding:22px;
+    align-items:start;
+  }
+  @media (max-width:980px){
+    .layout{grid-template-columns:1fr;}
+  }
+
+  .panel{
+    background:var(--surface);
+    border:1px solid var(--hairline);
+    border-radius:var(--radius);
+    padding:18px;
+    margin-bottom:18px;
+  }
+  .panel h2{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:var(--ink-tertiary);
+    font-weight:500;
+    margin:0 0 14px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+  .field{margin-bottom:10px;}
+  .field label{
+    display:block;font-size:11.5px;font-weight:600;color:var(--ink-muted);
+    margin-bottom:4px;
+  }
+  .field .hint{display:block;font-size:11px;color:var(--ink-tertiary);margin-top:4px;font-weight:400;}
+  input[type=text],input[type=number],input[type=date],input[type=email],textarea,select{
+    width:100%;
+    padding:9px 10px;
+    border:1px solid var(--hairline-strong);
+    border-radius:7px;
+    font:inherit;
+    font-size:13.5px;
+    color:var(--ink);
+    background:#fff;
+  }
+  input:focus,textarea:focus,select:focus{outline:2px solid var(--accent-tint);outline-offset:0;border-color:var(--accent);}
+  textarea{resize:vertical;min-height:56px;}
+  textarea::placeholder,input::placeholder{color:var(--ink-tertiary);}
+
+  .item-row{
+    display:grid;
+    grid-template-columns:1fr 56px 90px 90px 30px;
+    gap:8px;
+    align-items:center;
+    margin-bottom:8px;
+  }
+  .item-row input{padding:8px 9px;font-size:13px;}
+  .item-amount{
+    font-family:var(--mono);
+    font-size:13px;font-weight:500;color:var(--ink);text-align:right;padding-right:4px;
+  }
+  .item-header{
+    display:grid;grid-template-columns:1fr 56px 90px 90px 30px;gap:8px;
+    font-family:var(--mono);
+    font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-tertiary);
+    margin-bottom:6px;padding:0 1px;
+  }
+
+  .amc-toggle{
+    display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--ink);
+    cursor:pointer;user-select:none;
+  }
+  .amc-toggle input{width:auto;accent-color:var(--accent);}
+  .amc-fields{margin-top:12px;padding-top:12px;border-top:1px dashed var(--hairline-strong);}
+  .amc-fields[hidden]{display:none;}
+  .checkbox-line{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-muted);margin-top:6px;}
+  .checkbox-line input{width:auto;accent-color:var(--accent);}
+
+  .totals-mini{font-size:12px;color:var(--ink-tertiary);margin-top:4px;}
+
+  .sign-panel{border-color:var(--hairline-strong);}
+
+  /* ---- Estimate preview ---- */
+  .preview-wrap{position:sticky;top:22px;}
+  #estimate{
+    background:var(--surface);
+    border:1px solid var(--hairline);
+    border-radius:var(--radius);
+    padding:44px 46px;
+    max-width:820px;
+    margin:0 auto;
+    box-shadow:0 1px 3px rgba(25,25,24,.05);
+  }
+  .est-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:8px;}
+  .est-brand img{height:34px;width:auto;display:block;}
+  .est-brand .co-sub{
+    font-family:var(--mono);font-size:11px;color:var(--ink-tertiary);
+    margin-top:8px;letter-spacing:.02em;
+  }
+  .est-meta{text-align:right;}
+  .est-meta .est-title{
+    font-family:var(--serif);font-size:28px;font-weight:600;color:var(--ink);
+    letter-spacing:.01em;margin:0 0 6px;
+  }
+  .est-meta .est-num{font-family:var(--mono);font-size:12.5px;color:var(--ink-muted);}
+  .est-meta .est-status{
+    display:inline-block;margin-top:6px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--accent-hover);background:var(--accent-tint);
+    padding:3px 9px;border-radius:9999px;
+  }
+
+  .est-hr{height:1px;background:var(--hairline);margin:22px 0 26px;}
+
+  .est-parties{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:26px;}
+  .est-parties h4{
+    margin:0 0 6px;font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-tertiary);font-weight:500;
+  }
+  .est-parties .name{font-weight:700;font-size:14.5px;color:var(--ink);font-family:var(--sans);}
+  .est-parties .lines{font-size:12.5px;color:var(--ink-muted);white-space:pre-line;margin-top:3px;line-height:1.6;}
+
+  .est-dates{display:flex;gap:26px;margin-bottom:24px;flex-wrap:wrap;}
+  .est-dates div{font-size:12.5px;}
+  .est-dates span{display:block;font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-tertiary);margin-bottom:3px;}
+  .est-dates b{color:var(--ink);font-size:13px;font-family:var(--mono);font-weight:500;}
+
+  .est-scope{
+    background:var(--paper-elevated);
+    border:1px solid var(--hairline);
+    border-radius:8px;
+    padding:14px 16px;
+    margin-bottom:24px;
+  }
+  .est-scope h4{
+    margin:0 0 4px;font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-tertiary);font-weight:600;
+  }
+  .est-scope p{
+    margin:0;font-size:12.5px;color:var(--ink-secondary);line-height:1.55;white-space:pre-line;
+  }
+
+  table.est-table{width:100%;border-collapse:collapse;margin-bottom:6px;}
+  table.est-table thead th{
+    text-align:left;font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-tertiary);font-weight:500;
+    border-bottom:2px solid var(--ink);padding:0 6px 8px;
+  }
+  table.est-table thead th.num,table.est-table td.num{text-align:right;font-family:var(--mono);}
+  table.est-table tbody td{padding:12px 6px;font-size:13px;border-bottom:1px solid var(--hairline);vertical-align:top;}
+  table.est-table tbody tr.amc-row td{background:var(--accent-tint);}
+  .badge-amc{
+    display:inline-block;font-family:var(--mono);font-size:9.5px;font-weight:500;letter-spacing:.05em;
+    color:var(--accent-hover);background:#fff;border:1px solid var(--accent);border-radius:9999px;padding:2px 8px;margin-left:6px;
+    vertical-align:middle;text-transform:uppercase;
+  }
+  .item-desc-note{font-size:11px;color:var(--ink-tertiary);margin-top:2px;}
+
+  .est-totals{margin-left:auto;width:300px;margin-top:14px;}
+  .est-totals .line{display:flex;justify-content:space-between;font-size:13px;padding:6px 0;color:var(--ink-muted);}
+  .est-totals .line b{color:var(--ink);font-weight:500;font-family:var(--mono);}
+  .est-totals .grand{
+    display:flex;justify-content:space-between;margin-top:8px;padding-top:12px;
+    border-top:2px solid var(--ink);font-family:var(--mono);font-size:17px;font-weight:600;color:var(--ink);
+  }
+
+  .est-note-block{margin-top:26px;padding-top:16px;border-top:1px solid var(--hairline);}
+  .est-note-block h4{margin:0 0 5px;font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-tertiary);font-weight:500;}
+  .est-note-block p{margin:0 0 14px;font-size:12.5px;color:var(--ink-secondary);white-space:pre-line;line-height:1.6;}
+
+  .acceptance-box{
+    margin-top:26px;
+    padding:20px 22px;
+    border:1px solid var(--hairline-strong);
+    background:var(--paper-elevated);
+    border-radius:10px;
+    page-break-inside:avoid;
+  }
+  .acceptance-box h4{
+    margin:0 0 6px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;
+    color:var(--ink);font-weight:600;
+  }
+  .acceptance-box .acceptance-note{
+    margin:0 0 16px;font-size:12px;color:var(--ink-muted);line-height:1.5;
+  }
+  .sign-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px 24px;
+    margin-top:12px;
+  }
+  .sign-field{
+    border-bottom:1px solid var(--hairline-strong);
+    padding-bottom:6px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    min-height:30px;
+  }
+  .sign-field span{
+    font-family:var(--mono);
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    color:var(--ink-tertiary);
+  }
+
+  .est-footer{
+    margin-top:30px;padding-top:16px;border-top:1px solid var(--hairline);
+    text-align:center;font-family:var(--mono);font-size:11px;color:var(--ink-tertiary);letter-spacing:.02em;
+  }
+  .est-footer a{color:var(--ink-tertiary);}
+
+  @media print{
+    body{background:#fff;}
+    header.app-header,.form-col{display:none !important;}
+    .layout{display:block;padding:0;}
+    .preview-wrap{position:static;}
+    #estimate{border:none;box-shadow:none;padding:0;max-width:none;margin:0;}
+    .acceptance-box{background:#fff;border-color:#ccc;}
+  }
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="brand">
+    <img src="assets/brand/logo.svg" alt="ForkStack">
+    <div class="divider"></div>
+    <span class="tool-label">Estimate Generator</span>
+  </div>
+  <div class="actions">
+    <a href="../invoice/index.html" class="btn-ghost btn-link">← Switch to Invoice</a>
+    <button class="btn-ghost" id="btnReset" type="button">Reset form</button>
+    <button class="btn-primary" id="btnPrint" type="button">Print / Save as PDF</button>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- ============ FORM COLUMN ============ -->
+  <div class="form-col">
+
+    <div class="panel">
+      <h2>Estimate details</h2>
+      <div class="field-row">
+        <div class="field">
+          <label for="estNumber">Estimate #</label>
+          <input type="text" id="estNumber">
+        </div>
+        <div class="field">
+          <label for="docTitle">Document title</label>
+          <input type="text" id="docTitle" value="Estimate">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="estDate">Estimate date</label>
+          <input type="date" id="estDate">
+        </div>
+        <div class="field">
+          <label for="expiryDate">Valid until</label>
+          <input type="date" id="expiryDate">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="currency">Currency</label>
+          <select id="currency">
+            <option value="AED" data-locale="en-AE" selected>AED</option>
+            <option value="$" data-locale="en-US">USD ($)</option>
+            <option value="€" data-locale="de-DE">EUR (€)</option>
+            <option value="£" data-locale="en-GB">GBP (£)</option>
+            <option value="₹" data-locale="en-IN">INR (₹)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="status">Status label (optional)</label>
+          <input type="text" id="status" placeholder="e.g. Valid for 30 Days / Proposed">
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>From (ForkStack)</h2>
+      <div class="field">
+        <label for="fromName">Company name</label>
+        <input type="text" id="fromName" value="ForkStack">
+      </div>
+      <div class="field">
+        <label for="fromDetails">Company details</label>
+        <textarea id="fromDetails">United Arab Emirates
+hello@forkstack.net
+forkstack.net</textarea>
+        <span class="hint">Contact and legal details shown under the ForkStack header.</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Prepared for (Client)</h2>
+      <div class="field">
+        <label for="toName">Client / business name</label>
+        <input type="text" id="toName" placeholder="Client company or restaurant name">
+      </div>
+      <div class="field">
+        <label for="toDetails">Contact person / address / email</label>
+        <textarea id="toDetails" placeholder="Attention: Restaurant Owner / Manager&#10;Street Address, City, Country&#10;contact@client.com&#10;+000 00 000 0000"></textarea>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Scope summary (optional)</h2>
+      <div class="field">
+        <label for="projectScope">Project overview &amp; objectives</label>
+        <textarea id="projectScope" placeholder="e.g. Deployment of ForkStack POS & Kitchen Display System across 2 restaurant outlets, including hardware configuration, menu digitization, staff training, and 14 days of hypercare support."></textarea>
+        <span class="hint">Displayed as a highlighted project brief above the itemized pricing table. Leave blank to omit.</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Line items &amp; deliverables</h2>
+      <div class="item-header">
+        <span>Description</span><span>Qty</span><span>Rate</span><span>Amount</span><span></span>
+      </div>
+      <div id="itemsContainer"></div>
+      <button class="btn-add" id="btnAddItem" type="button">+ Add line item</button>
+    </div>
+
+    <div class="panel">
+      <h2>
+        <span>Yearly maintenance &amp; cloud (AMC)</span>
+      </h2>
+      <label class="amc-toggle">
+        <input type="checkbox" id="amcEnabled" checked>
+        Include yearly AMC / cloud support quotation
+      </label>
+
+      <div class="amc-fields" id="amcFields">
+        <div class="field">
+          <label for="amcDesc">Description</label>
+          <input type="text" id="amcDesc" value="Annual Maintenance &amp; Cloud Support (AMC)">
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="amcAmount">Amount / year</label>
+            <input type="number" id="amcAmount" min="0" step="0.01" placeholder="0.00">
+          </div>
+          <div class="field">
+            <label for="amcStart">Coverage starts</label>
+            <input type="text" id="amcStart" value="Upon deployment / completion" placeholder="e.g. After 30 days warranty">
+          </div>
+        </div>
+        <label class="checkbox-line">
+          <input type="checkbox" id="amcIncludeInTotal">
+          Add this charge to initial estimate total (uncheck to display as future annual fee)
+        </label>
+        <div class="field" style="margin-top:10px;">
+          <label for="amcNote">Maintenance note</label>
+          <textarea id="amcNote">Covers cloud hosting, regular system updates, automated backups, bug fixes, and priority support. Billed annually in advance starting after deployment/warranty period.</textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Discount &amp; tax</h2>
+      <div class="field-row">
+        <div class="field">
+          <label for="discountType">Discount type</label>
+          <select id="discountType">
+            <option value="pct" selected>Percentage</option>
+            <option value="flat">Flat amount</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="discountValue" id="discountValueLabel">Discount (%)</label>
+          <input type="number" id="discountValue" min="0" step="0.01" value="0">
+        </div>
+      </div>
+      <div class="field">
+        <label for="discountNote">Discount reason (optional)</label>
+        <input type="text" id="discountNote" placeholder="e.g. Multi-outlet commercial concession / Launch partner">
+      </div>
+      <div class="field">
+        <label for="taxRegime">Tax regime</label>
+        <select id="taxRegime">
+          <option value="NONE" data-taxname="Tax" data-rate="0">Generic — Tax</option>
+          <option value="AE_VAT" data-taxname="VAT" data-rate="5">🇦🇪 UAE — VAT (5%)</option>
+          <option value="SA_VAT" data-taxname="VAT" data-rate="15">🇸🇦 Saudi Arabia — VAT (15%)</option>
+          <option value="IN_GST" data-taxname="GST" data-rate="18">🇮🇳 India — GST (18%)</option>
+          <option value="GB_VAT" data-taxname="VAT" data-rate="20">🇬🇧 United Kingdom — VAT (20%)</option>
+          <option value="EU_VAT" data-taxname="VAT" data-rate="0">🇪🇺 EU — VAT</option>
+          <option value="US_SALES" data-taxname="Sales Tax" data-rate="0">🇺🇸 United States — Sales Tax</option>
+          <option value="SG_GST" data-taxname="GST" data-rate="9">🇸🇬 Singapore — GST (9%)</option>
+          <option value="BH_VAT" data-taxname="VAT" data-rate="10">🇧🇭 Bahrain — VAT (10%)</option>
+          <option value="OM_VAT" data-taxname="VAT" data-rate="5">🇴🇲 Oman — VAT (5%)</option>
+          <option value="EG_VAT" data-taxname="VAT" data-rate="14">🇪🇬 Egypt — VAT (14%)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="taxPct" id="taxPctLabel">Tax / VAT (%)</label>
+        <input type="number" id="taxPct" min="0" step="0.01" value="0">
+      </div>
+      <div class="totals-mini">Tax is computed after discount. If AMC is included in total, tax applies to both.</div>
+    </div>
+
+    <div class="panel">
+      <h2>Payment schedule / Milestones</h2>
+      <div class="field">
+        <textarea id="paymentSchedule">50% Advance deposit upon project kickoff and agreement
+30% Upon system deployment, menu setup & staff onboarding
+20% Upon final UAT sign-off and live operational handover</textarea>
+        <span class="hint">Recommended milestone structure for clear financial alignment.</span>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Terms &amp; conditions</h2>
+      <div class="field">
+        <textarea id="terms">1. Validity: This estimate and associated pricing are valid for 30 days from the estimate date.
+2. Scope: Any requirements, integrations, or hardware not specified in the line items above will be quoted under a separate change order.
+3. Timelines: Scheduled project delivery timelines commence upon receipt of the advance deposit and necessary client assets (menu lists, device access, staff rosters).
+4. Ownership: Final software configurations and user credentials transfer to the client upon full payment.
+5. Confidentiality: Both parties agree to protect all commercial, financial, and technical information exchanged under this quotation.</textarea>
+      </div>
+    </div>
+
+    <div class="panel sign-panel">
+      <h2>Client acceptance &amp; sign-off</h2>
+      <label class="checkbox-line" style="margin-bottom:10px;">
+        <input type="checkbox" id="acceptanceEnabled" checked>
+        Include acceptance signature block on estimate
+      </label>
+      <div class="field">
+        <label for="acceptanceNote">Acceptance instructions</label>
+        <textarea id="acceptanceNote">To accept this quotation and authorize ForkStack to begin implementation, please sign and date below, then return a signed copy via email.</textarea>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============ PREVIEW COLUMN ============ -->
+  <div class="preview-wrap">
+    <div id="estimate">
+      <div class="est-top">
+        <div class="est-brand">
+          <img src="assets/brand/logo.svg" alt="" id="pLogo">
+          <div class="co-sub" id="pFromSub"></div>
+        </div>
+        <div class="est-meta">
+          <p class="est-title" id="pDocTitle">Estimate</p>
+          <div class="est-num" id="pEstNumber">#—</div>
+          <div id="pStatusWrap"><span class="est-status" id="pStatus" hidden></span></div>
+        </div>
+      </div>
+
+      <div class="est-hr"></div>
+
+      <div class="est-parties">
+        <div>
+          <h4>From</h4>
+          <div class="name" id="pFromName2">ForkStack</div>
+          <div class="lines" id="pFromDetails"></div>
+        </div>
+        <div>
+          <h4>Prepared for</h4>
+          <div class="name" id="pToName">—</div>
+          <div class="lines" id="pToDetails"></div>
+        </div>
+      </div>
+
+      <div class="est-dates">
+        <div><span>Estimate date</span><b id="pEstDate">—</b></div>
+        <div><span>Valid until</span><b id="pExpiryDate">—</b></div>
+      </div>
+
+      <div class="est-scope" id="pScopeBlock" hidden>
+        <h4>Project scope &amp; overview</h4>
+        <p id="pScopeText"></p>
+      </div>
+
+      <table class="est-table">
+        <thead>
+          <tr>
+            <th>Description &amp; Deliverables</th>
+            <th class="num">Qty</th>
+            <th class="num">Rate</th>
+            <th class="num">Amount</th>
+          </tr>
+        </thead>
+        <tbody id="pItemsBody"></tbody>
+      </table>
+
+      <div class="est-totals" id="pTotals"></div>
+
+      <div class="est-note-block" id="pAmcNoteBlock" hidden>
+        <h4>Annual maintenance &amp; support (AMC)</h4>
+        <p id="pAmcNote"></p>
+      </div>
+
+      <div class="est-note-block" id="pScheduleBlock" hidden>
+        <h4>Proposed payment schedule</h4>
+        <p id="pSchedule"></p>
+      </div>
+
+      <div class="est-note-block" id="pTermsBlock" hidden>
+        <h4>Terms &amp; conditions</h4>
+        <p id="pTerms"></p>
+      </div>
+
+      <div class="acceptance-box" id="pAcceptanceBox">
+        <h4>Acceptance of quotation</h4>
+        <div class="acceptance-note" id="pAcceptanceNote"></div>
+        <div class="sign-grid">
+          <div class="sign-field"><span>Authorized Signature</span></div>
+          <div class="sign-field"><span>Printed Name</span></div>
+          <div class="sign-field"><span>Title / Designation</span></div>
+          <div class="sign-field"><span>Date (DD / MM / YYYY)</span></div>
+        </div>
+      </div>
+
+      <div class="est-footer" id="pFooter">ForkStack · forkstack.net · hello@forkstack.net</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var STORAGE_KEY = "forkstack_estimate_generator_v1";
+
+  var itemsContainer = document.getElementById("itemsContainer");
+  var items = []; // {desc, qty, rate}
+  var idCounter = 0;
+
+  function fmtDate(d){
+    if(!d) return "—";
+    var parts = d.split("-");
+    if(parts.length !== 3) return d;
+    var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    return parseInt(parts[2],10) + " " + months[parseInt(parts[1],10)-1] + " " + parts[0];
+  }
+
+  function currentCurrency(){
+    var sel = document.getElementById("currency");
+    return sel.options[sel.selectedIndex].value;
+  }
+  function currentLocale(){
+    var sel = document.getElementById("currency");
+    return sel.options[sel.selectedIndex].getAttribute("data-locale") || "en-US";
+  }
+  function fmtMoney(n){
+    n = Number(n) || 0;
+    var s = n.toLocaleString(currentLocale(), {minimumFractionDigits:2, maximumFractionDigits:2});
+    var cur = currentCurrency();
+    return (cur.length > 1 ? cur + " " : cur) + s;
+  }
+
+  function addItem(desc, qty, rate){
+    items.push({ id: ++idCounter, desc: desc || "", qty: (qty===undefined?1:qty), rate: (rate===undefined?"":rate) });
+    renderItemRows();
+  }
+
+  function removeItem(id){
+    items = items.filter(function(it){ return it.id !== id; });
+    renderItemRows();
+  }
+
+  function renderItemRows(){
+    itemsContainer.innerHTML = "";
+    items.forEach(function(it){
+      var row = document.createElement("div");
+      row.className = "item-row";
+      row.innerHTML =
+        '<input type="text" data-field="desc" placeholder="e.g. POS Terminal License & Setup" value="'+escapeAttr(it.desc)+'">' +
+        '<input type="number" data-field="qty" min="0" step="1" value="'+escapeAttr(it.qty)+'">' +
+        '<input type="number" data-field="rate" min="0" step="0.01" placeholder="0.00" value="'+escapeAttr(it.rate)+'">' +
+        '<div class="item-amount">'+fmtMoney((Number(it.qty)||0)*(Number(it.rate)||0))+'</div>' +
+        '<button type="button" class="row-remove" title="Remove line">✕</button>';
+
+      row.querySelector('[data-field="desc"]').addEventListener("input", function(e){
+        it.desc = e.target.value; renderPreview();
+      });
+      row.querySelector('[data-field="qty"]').addEventListener("input", function(e){
+        it.qty = e.target.value; renderItemRows(); renderPreview();
+      });
+      row.querySelector('[data-field="rate"]').addEventListener("input", function(e){
+        it.rate = e.target.value; renderItemRows(); renderPreview();
+      });
+      row.querySelector(".row-remove").addEventListener("click", function(){
+        removeItem(it.id); renderPreview();
+      });
+
+      itemsContainer.appendChild(row);
+    });
+    saveState();
+  }
+
+  function escapeAttr(v){
+    if(v === undefined || v === null) return "";
+    return String(v).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+  }
+  function escapeHtml(v){
+    if(v === undefined || v === null) return "";
+    return String(v)
+      .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  }
+  function nl2br(v){
+    return escapeHtml(v).replace(/\n/g,"<br>");
+  }
+
+  function computeTotals(){
+    var itemsSubtotal = items.reduce(function(sum, it){
+      return sum + (Number(it.qty)||0) * (Number(it.rate)||0);
+    }, 0);
+
+    var amcEnabled = document.getElementById("amcEnabled").checked;
+    var amcIncludeInTotal = document.getElementById("amcIncludeInTotal").checked;
+    var amcAmount = Number(document.getElementById("amcAmount").value) || 0;
+    var amcInTotal = (amcEnabled && amcIncludeInTotal) ? amcAmount : 0;
+
+    var base = itemsSubtotal + amcInTotal;
+
+    var discountType = document.getElementById("discountType").value;
+    var discountValue = Number(document.getElementById("discountValue").value) || 0;
+    var discountNote = document.getElementById("discountNote").value.trim();
+    var discountAmt = discountType === "flat" ? discountValue : base * (discountValue/100);
+    if(discountAmt < 0) discountAmt = 0;
+    if(discountAmt > base) discountAmt = base;
+    var afterDiscount = base - discountAmt;
+
+    var taxRegimeEl = document.getElementById("taxRegime");
+    var taxRegime = taxRegimeEl ? taxRegimeEl.value : "NONE";
+    var taxName = "Tax / VAT";
+    if(taxRegimeEl && taxRegimeEl.selectedIndex >= 0){
+      taxName = taxRegimeEl.options[taxRegimeEl.selectedIndex].getAttribute("data-taxname") || "Tax / VAT";
+    }
+
+    var taxPct = Number(document.getElementById("taxPct").value) || 0;
+    var taxAmt = afterDiscount * (taxPct/100);
+
+    var grandTotal = afterDiscount + taxAmt;
+
+    return {
+      itemsSubtotal: itemsSubtotal,
+      amcEnabled: amcEnabled,
+      amcAmount: amcAmount,
+      amcInTotal: amcEnabled && amcIncludeInTotal,
+      base: base,
+      discountType: discountType,
+      discountValue: discountValue,
+      discountNote: discountNote,
+      discountAmt: discountAmt,
+      taxRegime: taxRegime,
+      taxName: taxName,
+      taxPct: taxPct,
+      taxAmt: taxAmt,
+      grandTotal: grandTotal
+    };
+  }
+
+  function renderPreview(){
+    // Header / from
+    var fromName = document.getElementById("fromName").value || "ForkStack";
+    document.getElementById("pFromName2").textContent = fromName;
+    document.getElementById("pFromDetails").innerHTML = nl2br(document.getElementById("fromDetails").value);
+
+    var fromLines = document.getElementById("fromDetails").value.split("\n").filter(Boolean);
+    document.getElementById("pFromSub").textContent = fromLines.join(" · ");
+
+    // Estimate meta
+    document.getElementById("pDocTitle").textContent = document.getElementById("docTitle").value || "Estimate";
+    document.getElementById("pEstNumber").textContent = "#" + (document.getElementById("estNumber").value || "—");
+    var status = document.getElementById("status").value;
+    var statusEl = document.getElementById("pStatus");
+    if(status){ statusEl.textContent = status; statusEl.hidden = false; } else { statusEl.hidden = true; }
+
+    document.getElementById("pEstDate").textContent = fmtDate(document.getElementById("estDate").value);
+    document.getElementById("pExpiryDate").textContent = fmtDate(document.getElementById("expiryDate").value);
+
+    // Prepared for
+    document.getElementById("pToName").textContent = document.getElementById("toName").value || "—";
+    document.getElementById("pToDetails").innerHTML = nl2br(document.getElementById("toDetails").value);
+
+    // Scope block
+    var scopeVal = document.getElementById("projectScope").value.trim();
+    var scopeBlock = document.getElementById("pScopeBlock");
+    if(scopeVal){
+      scopeBlock.hidden = false;
+      document.getElementById("pScopeText").innerHTML = nl2br(scopeVal);
+    } else {
+      scopeBlock.hidden = true;
+    }
+
+    // Items
+    var body = document.getElementById("pItemsBody");
+    body.innerHTML = "";
+    items.forEach(function(it){
+      if(!it.desc && !it.qty && !it.rate) return;
+      var tr = document.createElement("tr");
+      var amt = (Number(it.qty)||0) * (Number(it.rate)||0);
+      tr.innerHTML =
+        '<td>'+escapeHtml(it.desc || "—")+'</td>' +
+        '<td class="num">'+ (it.qty === "" ? "—" : Number(it.qty)) +'</td>' +
+        '<td class="num">'+ (it.rate === "" ? "—" : fmtMoney(it.rate)) +'</td>' +
+        '<td class="num">'+ fmtMoney(amt) +'</td>';
+      body.appendChild(tr);
+    });
+
+    var totals = computeTotals();
+
+    if(totals.amcEnabled && totals.amcAmount > 0){
+      var amcDesc = document.getElementById("amcDesc").value || "Annual Maintenance & Support (AMC)";
+      var tr = document.createElement("tr");
+      tr.className = "amc-row";
+      var startVal = document.getElementById("amcStart").value.trim();
+      tr.innerHTML =
+        '<td>'+escapeHtml(amcDesc)+'<span class="badge-amc">'+(totals.amcInTotal ? "Included in total" : "Annual recurring · reference")+'</span>' +
+          (startVal ? '<div class="item-desc-note">Starts: '+escapeHtml(startVal)+'</div>' : '') +
+        '</td>' +
+        '<td class="num">1 yr</td>' +
+        '<td class="num">'+fmtMoney(totals.amcAmount)+'</td>' +
+        '<td class="num">'+fmtMoney(totals.amcAmount)+'</td>';
+      body.appendChild(tr);
+    }
+
+    if(body.children.length === 0){
+      var trEmpty = document.createElement("tr");
+      trEmpty.innerHTML = '<td colspan="4" style="color:var(--ink-tertiary);text-align:center;padding:18px 6px;">No line items added yet</td>';
+      body.appendChild(trEmpty);
+    }
+
+    // Totals block
+    var totalsEl = document.getElementById("pTotals");
+    var html = "";
+    html += '<div class="line"><span>Items subtotal</span><b>'+fmtMoney(totals.itemsSubtotal)+'</b></div>';
+    if(totals.amcEnabled && totals.amcAmount > 0){
+      html += '<div class="line"><span>'+(totals.amcInTotal ? "AMC (included in initial estimate)" : "Annual AMC (billed separately)")+'</span><b>'+fmtMoney(totals.amcAmount)+'</b></div>';
+    }
+    if(totals.discountAmt > 0){
+      var discountLabel = "Discount" + (totals.discountNote ? " — " + escapeHtml(totals.discountNote) : "") +
+        (totals.discountType === "flat" ? "" : " (" + totals.discountValue + "%)");
+      html += '<div class="line"><span>'+discountLabel+'</span><b>-'+fmtMoney(totals.discountAmt)+'</b></div>';
+    }
+    if(totals.taxPct > 0){
+      html += '<div class="line"><span>'+(totals.taxName || 'Tax / VAT')+' ('+totals.taxPct+'%)</span><b>'+fmtMoney(totals.taxAmt)+'</b></div>';
+    }
+    html += '<div class="grand"><span>Estimated total</span><span>'+fmtMoney(totals.grandTotal)+'</span></div>';
+    totalsEl.innerHTML = html;
+
+    // AMC note block
+    var amcNoteBlock = document.getElementById("pAmcNoteBlock");
+    if(totals.amcEnabled && document.getElementById("amcNote").value.trim()){
+      amcNoteBlock.hidden = false;
+      document.getElementById("pAmcNote").innerHTML = nl2br(document.getElementById("amcNote").value);
+    } else {
+      amcNoteBlock.hidden = true;
+    }
+
+    // Schedule block
+    var scheduleBlock = document.getElementById("pScheduleBlock");
+    var scheduleVal = document.getElementById("paymentSchedule").value.trim();
+    if(scheduleVal){
+      scheduleBlock.hidden = false;
+      document.getElementById("pSchedule").innerHTML = nl2br(scheduleVal);
+    } else {
+      scheduleBlock.hidden = true;
+    }
+
+    // Terms block
+    var termsBlock = document.getElementById("pTermsBlock");
+    var termsVal = document.getElementById("terms").value.trim();
+    if(termsVal){
+      termsBlock.hidden = false;
+      document.getElementById("pTerms").innerHTML = nl2br(termsVal);
+    } else {
+      termsBlock.hidden = true;
+    }
+
+    // Acceptance block
+    var acceptBlock = document.getElementById("pAcceptanceBlock");
+    var acceptEnabled = document.getElementById("acceptanceEnabled").checked;
+    if(acceptEnabled){
+      acceptBlock.hidden = false;
+      document.getElementById("pAcceptanceNote").innerHTML = nl2br(document.getElementById("acceptanceNote").value);
+    } else {
+      acceptBlock.hidden = true;
+    }
+
+    saveState();
+  }
+
+  // ---- amc toggle ----
+  var amcEnabledCb = document.getElementById("amcEnabled");
+  var amcFields = document.getElementById("amcFields");
+  amcEnabledCb.addEventListener("change", function(){
+    amcFields.hidden = !amcEnabledCb.checked;
+    renderPreview();
+  });
+
+  // ---- simple inputs ----
+  var simpleIds = [
+    "estNumber","docTitle","estDate","expiryDate","currency","status",
+    "fromName","fromDetails","toName","toDetails","projectScope",
+    "amcDesc","amcAmount","amcStart","amcIncludeInTotal","amcNote",
+    "discountType","discountValue","discountNote","taxRegime","taxPct","paymentSchedule","terms",
+    "acceptanceEnabled","acceptanceNote"
+  ];
+
+  // ---- discount type toggle ----
+  var discountTypeEl = document.getElementById("discountType");
+  var discountValueLabel = document.getElementById("discountValueLabel");
+  function updateDiscountLabel(){
+    discountValueLabel.textContent = discountTypeEl.value === "flat" ? "Discount (amount)" : "Discount (%)";
+  }
+  discountTypeEl.addEventListener("change", updateDiscountLabel);
+  updateDiscountLabel();
+
+  // ---- tax regime toggle (updates the rate and label) ----
+  var taxRegimeEl = document.getElementById("taxRegime");
+  var taxPctLabel = document.getElementById("taxPctLabel");
+  function updateTaxRegime(){
+    if(!taxRegimeEl) return;
+    var opt = taxRegimeEl.options[taxRegimeEl.selectedIndex];
+    if(opt){
+      var tName = opt.getAttribute("data-taxname") || "Tax / VAT";
+      if(taxPctLabel) taxPctLabel.textContent = tName + " (%)";
+      var dRate = opt.getAttribute("data-rate");
+      if(dRate !== null && Number(dRate) > 0){
+        document.getElementById("taxPct").value = dRate;
+      }
+    }
+  }
+  if(taxRegimeEl){
+    taxRegimeEl.addEventListener("change", function(){
+      updateTaxRegime();
+      renderPreview();
+    });
+  }
+
+  simpleIds.forEach(function(id){
+    var el = document.getElementById(id);
+    if(!el) return;
+    var evt = (el.tagName === "SELECT" || el.type === "checkbox" || el.type === "date") ? "change" : "input";
+    el.addEventListener(evt, function(){
+      renderItemRows();
+      renderPreview();
+    });
+  });
+
+  // ---- add item button ----
+  document.getElementById("btnAddItem").addEventListener("click", function(){
+    addItem("", 1, "");
+    renderPreview();
+  });
+
+  // ---- print ----
+  document.getElementById("btnPrint").addEventListener("click", function(){
+    window.print();
+  });
+
+  // ---- reset ----
+  document.getElementById("btnReset").addEventListener("click", function(){
+    if(!confirm("Clear all fields and start a new estimate?")) return;
+    localStorage.removeItem(STORAGE_KEY);
+    location.reload();
+  });
+
+  function todayStr(){
+    var d = new Date();
+    return d.toISOString().slice(0,10);
+  }
+  function generateEstimateNumber(){
+    var d = new Date();
+    var y = d.getFullYear();
+    var m = String(d.getMonth()+1).padStart(2,"0");
+    var rand = String(Math.floor(Math.random()*900)+100);
+    return "EST-" + y + m + "-" + rand;
+  }
+
+  function saveState(){
+    try{
+      var state = { items: items, fields: {} };
+      simpleIds.forEach(function(id){
+        var el = document.getElementById(id);
+        if(!el) return;
+        state.fields[id] = (el.type === "checkbox") ? el.checked : el.value;
+      });
+      state.fields["amcEnabled"] = amcEnabledCb.checked;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }catch(e){ /* storage unavailable */ }
+  }
+
+  function loadState(){
+    var raw;
+    try{ raw = localStorage.getItem(STORAGE_KEY); }catch(e){ raw = null; }
+    if(!raw) return false;
+    try{
+      var state = JSON.parse(raw);
+      if(state.fields){
+        Object.keys(state.fields).forEach(function(id){
+          var el = document.getElementById(id);
+          if(!el) return;
+          if(el.type === "checkbox") el.checked = !!state.fields[id];
+          else el.value = state.fields[id];
+        });
+      }
+      amcEnabledCb.checked = !!state.fields["amcEnabled"];
+      amcFields.hidden = !amcEnabledCb.checked;
+
+      if(Array.isArray(state.items) && state.items.length){
+        items = state.items.map(function(it){ idCounter = Math.max(idCounter, it.id||0); return it; });
+      }
+      return true;
+    }catch(e){ return false; }
+  }
+
+  // ---- init ----
+  var restored = loadState();
+  if(!restored){
+    document.getElementById("estNumber").value = generateEstimateNumber();
+    document.getElementById("estDate").value = todayStr();
+    var exp = new Date();
+    exp.setDate(exp.getDate() + 30); // 30-day validity
+    document.getElementById("expiryDate").value = exp.toISOString().slice(0,10);
+
+    addItem("ForkStack POS Enterprise License (per outlet)", 1, "");
+    addItem("Kitchen Display System (KDS) & Printer Module", 1, "");
+    addItem("Hardware Setup, Menu Onboarding & Staff Training", 1, "");
+  } else {
+    if(items.length === 0) addItem("", 1, "");
+    renderItemRows();
+  }
+
+  renderItemRows();
+  renderPreview();
+})();
+</script>
+
+</body>
+</html>
