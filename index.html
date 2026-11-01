@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#FAF8F5">
 <title>ForkStack — AI software for restaurants</title>
 <meta name="description" content="ForkStack builds AI software for restaurants: an assistant that answers from your own data across 43 read-only tools, on top of the till and the back office it runs on.">
 <link rel="canonical" href="https://forkstack.net/">
@@ -19,7 +20,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="/styles.css">
+<link rel="preload" as="image" href="/assets/screens/app/pos-floor.webp" type="image/webp">
+<script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<link rel="stylesheet" href="/styles.css?v=20261101i">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -28,13 +31,7 @@
   "applicationCategory": "BusinessApplication",
   "operatingSystem": "Windows, macOS, Android, iOS, Web",
   "softwareVersion": "1.3.2",
-  "url": "https://forkstack.net/",
-  "offers": [
-    { "@type": "Offer", "name": "Mini", "price": "55", "priceCurrency": "AED" },
-    { "@type": "Offer", "name": "Base", "price": "199", "priceCurrency": "AED" },
-    { "@type": "Offer", "name": "Core", "price": "250", "priceCurrency": "AED" },
-    { "@type": "Offer", "name": "Pro", "price": "650", "priceCurrency": "AED" }
-  ]
+  "url": "https://forkstack.net/"
 }
 </script>
 </head>
@@ -47,16 +44,16 @@
       <div class="nav-group" data-open="false">
         <button type="button" aria-expanded="false">Product<svg width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button>
         <div class="nav-menu">
-          <a href="/owner-app/">Owner App<span class="desc">The AI assistant, on your phone</span></a>
+          <a href="/forkstack-ai/">ForkStack AI<span class="desc">Ask your restaurant a question</span></a>
           <a href="/erp/">ERP<span class="desc">The back office, with the assistant built in</span></a>
           <a href="/pos/">POS<span class="desc">The till the numbers come from</span></a>
         </div>
       </div>
       <a href="/demo/">Demo</a>
-      <a href="/pricing/">Pricing</a>
       <a href="/download/">Download</a>
     </nav>
     <div class="header-cta">
+      <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to dark mode"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></svg></button>
       <a class="btn btn-primary btn-sm" href="/contact/">Talk to sales</a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Open menu">
         <svg width="18" height="12" viewBox="0 0 18 12" aria-hidden="true"><path d="M0 1h18M0 6h18M0 11h18" stroke="currentColor" stroke-width="1.5"/></svg>
@@ -66,223 +63,313 @@
 </header>
 <div class="mobile-nav" data-open="false">
   <div class="wrap">
-    <a href="/owner-app/">Owner App</a>
+    <a href="/forkstack-ai/">ForkStack AI</a>
     <a href="/erp/">ERP</a>
     <a href="/pos/">POS</a>
     <a href="/demo/">Demo</a>
-    <a href="/pricing/">Pricing</a>
     <a href="/download/">Download</a>
     <a class="btn btn-primary" href="/contact/">Talk to sales</a>
   </div>
 </div>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-ai" viewBox="0 0 24 24"><path d="M20.5 12a8.5 8.5 0 0 1-12.3 7.6L3.5 20.5l1-4.3A8.5 8.5 0 1 1 20.5 12z"/><path d="M12 8l1 2.2 2.2 1-2.2 1-1 2.2-1-2.2-2.2-1 2.2-1z"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 20.5h18"/><path d="M6.5 17V11M12 17V5.5M17.5 17v-4"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M3.5 8.5a2 2 0 0 1 2-2h2l1.5-2h6l1.5 2h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+    <symbol id="i-floor" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-ticket" viewBox="0 0 24 24"><path d="M6 3.5h12v17l-3-2-3 2-3-2-3 2z"/><path d="M9 8.5h6M9 12.5h6"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="M20.5 7.5 12 3 3.5 7.5 12 12z"/><path d="M3.5 7.5v9L12 21l8.5-4.5v-9"/><path d="M12 12v9"/></symbol>
+    <symbol id="i-cash" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 12h.01M18 12h.01"/></symbol>
+    <symbol id="i-staff" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8"/><path d="M21.5 20a6.5 6.5 0 0 0-3.8-5.9"/></symbol>
+  </defs>
+</svg>
+
 <main>
 
-  <!-- 1 · Hero -->
-  <section>
-    <div class="wrap">
-      <div class="split">
-        <div class="col-7">
-          <h1>AI that runs on your restaurant's own numbers.</h1>
-        </div>
-        <div class="col-5 stack-lg pad-top">
-          <p class="lead">Ask the business a question. Get the answer, the chart, and the figures behind it.</p>
-          <div class="btn-row">
-            <a class="btn btn-primary" href="/demo/">See the demo</a>
-            <a class="link-arrow" href="/contact/">Talk to sales</a>
+  <!-- 1 · Hero. Plays once on load (site.js): the copy rises, then the desk,
+       then the notifications left to right. Without the script it is all simply there. -->
+  <section class="hero" data-hero>
+    <div class="wrap hero-copy">
+      <h1>Ask your restaurant <em>anything.</em></h1>
+      <p class="lead">The till, the kitchen and the back office on one system, with an assistant that answers from all of it in seconds.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary btn-lg" href="/demo/">See the demo</a>
+        <a class="btn btn-secondary btn-lg" href="/contact/">Talk to sales</a>
+      </div>
+      <ul class="hero-facts">
+        <li>Bills through Wi-Fi outages</li>
+        <li>One login for every outlet</li>
+        <li>Windows · macOS · Android · iOS</li>
+      </ul>
+    </div>
+
+    <div class="hero-stage" role="img" aria-label="ForkStack on a laptop showing the floor, a kitchen tablet with the open tickets, and the owner&#8217;s phone with the ForkStack AI assistant">
+      <div class="hero-desk" data-hero-desk>
+        <div class="laptop-mockup">
+          <div class="lid">
+            <div class="screen-frame">
+              <img src="/assets/screens/app/pos-floor.webp" width="1920" height="1200" alt="" fetchpriority="high">
+            </div>
           </div>
+          <div class="base"></div>
+        </div>
+
+        <div class="tablet-mockup hero-tablet">
+          <div class="tablet-screen"><img src="/assets/screens/app/pos-kitchen-tablet.webp" width="1640" height="2360" alt=""></div>
+        </div>
+
+        <div class="phone-mockup is-android hero-phone">
+          <div class="phone-screen"><div class="phone-status ai-status"><span>9:41</span><span class="sig"><i></i><i></i><i></i><i></i><b></b></span></div><img src="/assets/screens/app/ai-assistant-nostatus.webp" width="804" height="1636" alt=""></div>
         </div>
       </div>
-
-      <div class="section-body hero-shot" data-hero-shot>
-        <div class="frame">
-          <picture>
-            <source srcset="/assets/screens/14-bill-printed-due.webp" type="image/webp">
-            <img src="/assets/screens/14-bill-printed-due.png" width="1366" height="860" alt="ForkStack POS order screen after the bill has been printed, with the order marked DUE and awaiting payment.">
-          </picture>
-          <div class="overlay">
-            <p class="eyebrow">Recorded once, completely</p>
-            <h2>Every figure the assistant reports traces back to a screen like this.</h2>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-body stat-row">
-        <div><div class="figure">43</div><div class="label">Read-only AI tools</div></div>
-        <div><div class="figure">2</div><div class="label">Surfaces with the assistant</div></div>
-        <div><div class="figure">9</div><div class="label">ERP modules it reads</div></div>
-        <div><div class="figure">0</div><div class="label">Tools that can write</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 2 · The assistant -->
-  <section class="hairline-top">
-    <div class="wrap split">
-      <div class="col-5 stack-lg">
-        <p class="eyebrow">The assistant</p>
-        <h2>Ask the business a question.</h2>
-        <p class="muted">Sales, money, stock, people, events, operations — 43 read-only tools across the lot.</p>
-        <p><a class="link-arrow" href="/owner-app/">See the full list</a></p>
-      </div>
-      <div class="col-7 pad-top">
-        <ul class="arrow-list">
-          <li>Which outlet had the worst food cost last month?</li>
-          <li>Who sold the most on Friday, and what did they sell?</li>
-          <li>Show me everything waiting for my approval.</li>
-          <li>What is running low across all outlets?</li>
-          <li>How did this month compare with the last one?</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- 3 · The guarantee -->
-  <section class="dark">
-    <div class="wrap split">
-      <div class="col-5 stack-lg">
-        <p class="eyebrow eyebrow-accent">How it stays right</p>
-        <h2>Every number came from the server.</h2>
-        <p class="muted">The model picks the tools and writes the explanation. It does not do the arithmetic, and it cannot change what it reads.</p>
-      </div>
-      <div class="col-7 pad-top">
-        <ul class="grid-facts">
-          <li><span class="k">43 reads, 0 writes</span><span class="v">No tool creates, edits or deletes a record.</span></li>
-          <li><span class="k">Server-side arithmetic</span><span class="v">Totals and variances are computed before the model sees them.</span></li>
-          <li><span class="k">20 rows to the model, 200 to you</span><span class="v">Trimmed lists are flagged, so a partial count is never a total.</span></li>
-          <li><span class="k">Draws nothing, not zero</span><span class="v">A block with no data renders nothing at all.</span></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- 4 · The four surfaces -->
-  <section>
-    <div class="wrap">
-      <div class="split">
-        <div class="col-5"><h2>The software underneath the answers.</h2></div>
-        <div class="col-7 pad-top"><p class="muted">An assistant is only as good as the system that records the day. We build that too — one database, one login, four surfaces.</p></div>
-      </div>
-      <div class="section-body row-4">
-        <a class="card stack" href="/owner-app/">
-          <p class="eyebrow">Phone</p>
-          <h3>Owner App</h3>
-          <p class="small">The assistant, a live dashboard and payroll. iOS and Android.</p>
-          <span class="link-arrow">Explore</span>
-        </a>
-        <a class="card stack" href="/erp/">
-          <p class="eyebrow">Back office</p>
-          <h3>ERP</h3>
-          <p class="small">Financials, procurement, payroll, events — and the assistant.</p>
-          <span class="link-arrow">Explore</span>
-        </a>
-        <a class="card stack" href="/pos/">
-          <p class="eyebrow">Till</p>
-          <h3>POS</h3>
-          <p class="small">Floor plan, KOT rounds, split tenders, cash-up.</p>
-          <span class="link-arrow">Explore</span>
-        </a>
-        <a class="card stack" href="/pos/#manager">
-          <p class="eyebrow">Floor</p>
-          <h3>Manager Portal</h3>
-          <p class="small">Staff, drawer, stock, day close. In every POS install.</p>
-          <span class="link-arrow">Explore</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5 · Complete data -->
-  <section class="hairline-top">
-    <div class="wrap">
-      <div class="split">
-        <div class="col-5 stack-lg">
-          <p class="eyebrow">Complete data</p>
-          <h2>An answer is only as good as the day behind it.</h2>
-        </div>
-        <div class="col-7 stack pad-top">
-          <p class="muted">The till does not drop bills when the connection does. Each device writes locally and drains an outbox when the link returns — nothing lost, nothing settled twice.</p>
-          <p><a class="link-arrow" href="/pos/#offline">How the sync protocol works</a></p>
-        </div>
-      </div>
-
-      <div class="section-body diagram">
-        <svg viewBox="0 0 1160 180" width="1160" height="180" role="img" aria-label="Flow diagram: a user action is written locally and the interface updates immediately; the write also enters an outbox, which posts to the sync endpoint when the connection returns, and the server applies each mutation exactly once.">
-          <g fill="none" stroke="#D0CBC0" stroke-width="1">
-            <rect x="0.5" y="6.5" width="300" height="52" rx="6"/>
-            <rect x="430.5" y="6.5" width="300" height="52" rx="6"/>
-            <rect x="860.5" y="6.5" width="299" height="52" rx="6"/>
-            <rect x="0.5" y="112.5" width="300" height="60" rx="6"/>
-            <rect x="430.5" y="112.5" width="300" height="60" rx="6"/>
-            <rect x="860.5" y="112.5" width="299" height="60" rx="6"/>
-          </g>
-          <g fill="#191918" font-family="Inter, sans-serif" font-size="14" font-weight="500">
-            <text x="150" y="37" text-anchor="middle">User action</text>
-            <text x="580" y="37" text-anchor="middle">Local write</text>
-            <text x="1010" y="37" text-anchor="middle">UI updates immediately</text>
-            <text x="150" y="139" text-anchor="middle">Outbox</text>
-            <text x="1010" y="139" text-anchor="middle">Server applies once</text>
-          </g>
-          <g font-family="'JetBrains Mono', monospace" font-size="13" fill="#191918">
-            <text x="580" y="139" text-anchor="middle">POST /api/sync/push</text>
-          </g>
-          <g fill="#8E8B82" font-family="'JetBrains Mono', monospace" font-size="12">
-            <text x="150" y="158" text-anchor="middle">writes queued in order</text>
-            <text x="580" y="158" text-anchor="middle">when the link returns</text>
-            <text x="1010" y="158" text-anchor="middle">idempotent by mutation id</text>
-          </g>
-          <g stroke="#D0CBC0" stroke-width="1" fill="none">
-            <path d="M302 32h122"/>
-            <path d="M732 32h122"/>
-            <path d="M580 60v26H150v20"/>
-            <path d="M732 142h122"/>
-          </g>
-          <g stroke="#107C41" stroke-width="1.4" fill="none"><path d="M302 142h122"/></g>
-          <g fill="#D0CBC0">
-            <path d="M429 32l-8-4v8z"/><path d="M859 32l-8-4v8z"/>
-            <path d="M150 111l-4-8h8z"/><path d="M859 142l-8-4v8z"/>
-          </g>
-          <path d="M429 142l-8-4v8z" fill="#107C41"/>
-        </svg>
-      </div>
-
-      <ul class="grid-facts cols-3 section-body">
-        <li><span class="k">Nothing settles twice</span><span class="v">Every mutation carries a device-generated id, recorded with its effects in one transaction.</span></li>
-        <li><span class="k">Tenders are never netted</span><span class="v">Cash, card, UPI and each delivery platform keep their own line to the report.</span></li>
-        <li><span class="k">One business day</span><span class="v">A venue closing at 3am gets one day, one drawer and one close.</span></li>
+      <ul class="hero-feed" aria-label="What happened tonight">
+        <li class="hero-toast"><span class="ic ok">✓</span><div><b>KOT 104 sent</b><small>Table 4 · 3 items · kitchen</small></div></li>
+        <li class="hero-toast"><span class="ic warn">!</span><div><b>Basmati rice is low</b><small>4.0 kg left · reorder at 15 kg</small></div></li>
+        <li class="hero-toast"><span class="ic ok">₹</span><div><b>₹ 577.50 settled</b><small>₹ 300.00 cash · ₹ 277.50 card</small></div></li>
+        <li class="hero-toast"><span class="ic sync">↻</span><div><b>Back online</b><small>3 offline bills synced</small></div></li>
       </ul>
     </div>
   </section>
 
-  <!-- 6 · Reconciliation -->
-  <section class="hairline-top">
-    <div class="wrap split">
-      <div class="col-5 stack-lg">
-        <p class="eyebrow">Cash-up</p>
-        <h2>Short 200 and over 200 is not a clean day.</h2>
-        <p class="muted">It is two problems that cancel in a total. Each tender is counted and reported on its own line.</p>
+  <section class="hero-proof">
+    <div class="wrap">
+      <!-- Proof Stats Row -->
+      <div class="stat-row">
+        <div><div class="figure">43</div><div class="label">AI tools on your live data</div></div>
+        <div><div class="figure">4</div><div class="label">Connected products, 1 login</div></div>
+        <div><div class="figure">5</div><div class="label">Platforms, 1 unified database</div></div>
+        <div><div class="figure">∞</div><div class="label">Staff accounts on every till</div></div>
       </div>
-      <div class="col-7 pad-top">
-        <figure>
-          <div class="table-scroll">
-            <table>
-              <thead><tr><th>Tender</th><th class="num">Expected</th><th class="num">Counted</th><th class="num">Variance</th></tr></thead>
-              <tbody>
-                <tr><td>Cash</td><td class="num">4,820.00</td><td class="num">4,620.00</td><td class="num" style="color:var(--danger)">−200.00</td></tr>
-                <tr><td>Card</td><td class="num">12,340.00</td><td class="num">12,540.00</td><td class="num" style="color:var(--info)">+200.00</td></tr>
-                <tr><td>Talabat</td><td class="num">3,110.00</td><td class="num">3,110.00</td><td class="num">0.00</td></tr>
-                <tr><td>Shortfalls</td><td class="num"></td><td class="num"></td><td class="num" style="color:var(--danger)">−200.00</td></tr>
-                <tr><td>Overages</td><td class="num"></td><td class="num"></td><td class="num" style="color:var(--info)">+200.00</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <figcaption>Cash-up, as printed on the Z report. Figures illustrative.</figcaption>
-        </figure>
+
+      <!-- Platform Compatibility Bar -->
+      <div class="plat-bar">
+        <span class="plat-tag">Built for all your venue hardware</span>
+        <div class="plat-cards">
+          <div class="plat-card"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.902-1.802"/></svg>Windows</div>
+          <div class="plat-card"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.77 1.06-1.85.94-2.93-1 .04-2.15.66-2.82 1.43-.59.67-1.11 1.76-.97 2.82 1.11.09 2.22-.55 2.85-1.32z"/></svg>macOS</div>
+          <div class="plat-card"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.551 0 .9993.4482.9993.9993.0001.5511-.4483.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0223 3.503C15.5896 8.3534 13.8565 8 12 8s-3.5896.3534-5.1368.9497L4.8409 5.4467a.4161.4161 0 00-.5677-.1521.4157.4157 0 00-.1521.5676l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.761h24c-.3432-4.1021-2.6889-7.5743-6.1185-9.4396"/></svg>Android</div>
+          <div class="plat-card"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.63-.77 1.06-1.85.94-2.93-1 .04-2.15.66-2.82 1.43-.59.67-1.11 1.76-.97 2.82 1.11.09 2.22-.55 2.85-1.32z"/></svg>iOS</div>
+          <div class="plat-card"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Web</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 7 · Close -->
+
+
+  <!-- 2 · The Four Connected Products -->
+  <section class="hairline-top">
+    <div class="wrap">
+      <div class="split">
+        <div class="col-6">
+          <p class="eyebrow">The Suite</p>
+          <h2>The software underneath the answers.</h2>
+        </div>
+        <div class="col-6 pad-top">
+          <p class="muted">An AI assistant is only as truthful as the system that records the service. One unified database, one login, four specialized surfaces.</p>
+        </div>
+      </div>
+
+      <div class="showcase-grid">
+        <!-- Product 1: POS -->
+        <article class="showcase-card">
+          <div class="card-head">
+            <span class="badge badge-accent">The Till</span>
+            <h3 style="margin-top:8px">ForkStack POS</h3>
+            <p>Floor plans, KOT tickets, split tenders, and lightning-fast billing.</p>
+          </div>
+          <div class="showcase-media">
+            <div class="laptop-mockup">
+              <div class="lid">
+                <div class="screen-frame">
+                  <img loading="lazy" src="/assets/screens/app/pos-floor.webp" width="1920" height="1200" alt="ForkStack POS floor: twelve tables across three areas, five occupied with running bills and one bill printed and due">
+                </div>
+              </div>
+              <div class="base"></div>
+            </div>
+          </div>
+          <ul class="factlist">
+            <li>Multi-floor tables &amp; running totals</li>
+            <li>One-tap split bills &amp; tender mixing</li>
+            <li>Full offline billing resilience</li>
+          </ul>
+          <div class="card-footer">
+            <span class="plat-badge">Windows · macOS · Android · iOS</span>
+            <a class="link-arrow" href="/pos/">Explore POS</a>
+          </div>
+        </article>
+
+        <!-- Product 2: KDS -->
+        <article class="showcase-card">
+          <div class="card-head">
+            <span class="badge">Kitchen</span>
+            <h3 style="margin-top:8px">Kitchen Display System</h3>
+            <p>Real-time order tickets grouped by KOT round with prep timers.</p>
+          </div>
+          <div class="showcase-media">
+            <div class="tablet-mockup">
+              <div class="tablet-screen"><img loading="lazy" src="/assets/screens/app/pos-kitchen-tablet.webp" width="1640" height="2360" alt="ForkStack kitchen display on a tablet: six tickets, the oldest 54 minutes in"></div>
+            </div>
+          </div>
+          <ul class="factlist">
+            <li>Live tickets grouped by KOT round</li>
+            <li>Color-coded elapsed preparation timers</li>
+            <li>One-tap pass clearance to server</li>
+          </ul>
+          <div class="card-footer">
+            <span class="plat-badge">iPad · Android Tablets · Browser</span>
+            <a class="link-arrow" href="/pos/">Explore KDS</a>
+          </div>
+        </article>
+
+        <!-- Product 3: ForkStack AI -->
+        <article class="showcase-card">
+          <div class="card-head">
+            <span class="badge badge-accent">Mobile AI</span>
+            <h3 style="margin-top:8px">ForkStack AI</h3>
+            <p>Live sales pulse, food cost alerts, and the conversational AI assistant.</p>
+          </div>
+          <div class="showcase-media">
+            <div class="phone-mockup">
+              <img loading="lazy" src="/assets/screens/app/ai-dashboard.webp" width="804" height="1748" alt="ForkStack AI dashboard on iPhone: revenue so far today, bills, and what needs attention">
+            </div>
+          </div>
+          <ul class="factlist">
+            <li>43 read-only tools answering from live data</li>
+            <li>Real-time revenue, peak hours &amp; voids</li>
+            <li>Multi-outlet switcher for group owners</li>
+          </ul>
+          <div class="card-footer">
+            <span class="plat-badge">iOS &amp; Android</span>
+            <a class="link-arrow" href="/forkstack-ai/">Explore ForkStack AI</a>
+          </div>
+        </article>
+
+        <!-- Product 4: ERP -->
+        <article class="showcase-card">
+          <div class="card-head">
+            <span class="badge">Back Office</span>
+            <h3 style="margin-top:8px">ForkStack ERP</h3>
+            <p>Complete back office: inventory recipes, procurement, payroll, and day close.</p>
+          </div>
+          <div class="showcase-media">
+            <div class="laptop-mockup">
+              <div class="lid">
+                <div class="screen-frame">
+                  <img loading="lazy" src="/assets/screens/app/erp-dashboard.webp" width="1920" height="1200" alt="ForkStack ERP dashboard: revenue today, inventory value, low stock and a seven-day revenue trend">
+                </div>
+              </div>
+              <div class="base"></div>
+            </div>
+          </div>
+          <ul class="factlist">
+            <li>Recipe-to-ingredient stock deduction</li>
+            <li>Blind cash drawer reconciliation</li>
+            <li>Vendor purchases &amp; staff payroll runs</li>
+          </ul>
+          <div class="card-footer">
+            <span class="plat-badge">Windows · macOS · Browser</span>
+            <a class="link-arrow" href="/erp/">Explore ERP</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · Features Grid (Brochure Style) -->
+  <section class="hairline-top" style="background:var(--paper-elevated)">
+    <div class="wrap">
+      <div class="narrow stack">
+        <p class="eyebrow eyebrow-accent">Features</p>
+        <h2>AI at the core. Every station covered.</h2>
+        <p class="muted">Engineered for restaurant operations — from standalone quick-serve counters to multi-concept dining groups.</p>
+      </div>
+
+      <ul class="feats-grid">
+        <li class="feat-item">
+          <span class="feat-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-ai"/></svg></span>
+          <div class="feat-content">
+            <h3>AI assistant<span class="ai-tag">AI</span></h3>
+            <p>Ask in plain English about sales, stock levels, and staff performance across 43 read-only tools.</p>
+          </div>
+        </li>
+        <li class="feat-item">
+          <span class="feat-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-floor"/></svg></span>
+          <div class="feat-content">
+            <h3>Tables &amp; orders</h3>
+            <p>Multi-floor maps, live occupancy, elapsed table timers, KOT rounds, and itemized split bills.</p>
+          </div>
+        </li>
+        <li class="feat-item">
+          <span class="feat-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-chart"/></svg></span>
+          <div class="feat-content">
+            <h3>Owner live dashboard<span class="ai-tag">AI</span></h3>
+            <p>Real-time revenue pulse, peak hours, top-selling items, and margin analysis on your phone.</p>
+          </div>
+        </li>
+        <li class="feat-item">
+          <span class="feat-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-ticket"/></svg></span>
+          <div class="feat-content">
+            <h3>Kitchen display (KDS)</h3>
+            <p>Live order queue grouped by KOT round, elapsed prep timers, and one-tap order ready pass.</p>
+          </div>
+        </li>
+        <li class="feat-item">
+          <span class="feat-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-camera"/></svg></span>
+          <div class="feat-content">
+            <h3>Menu from a photo<span class="ai-tag">AI</span></h3>
+            <p>Snap a photo of your printed menu and AI parses categories, dishes, and variants in seconds.</p>
+          </div>
+        </li>
+        <li class="feat-item">
+          <span class="feat-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-box"/></svg></span>
+          <div class="feat-content">
+            <h3>Menu &amp; stock deduction</h3>
+            <p>Recipe-to-ingredient mapping so every billed sale instantly deducts pantry inventory.</p>
+          </div>
+        </li>
+        <li class="feat-item">
+          <span class="feat-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-cash"/></svg></span>
+          <div class="feat-content">
+            <h3>Cash-up &amp; split tenders</h3>
+            <p>Cash, card, UPI, and delivery portals tracked independently all the way to the Z report.</p>
+          </div>
+        </li>
+        <li class="feat-item">
+          <span class="feat-icon"><svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><use href="#i-staff"/></svg></span>
+          <div class="feat-content">
+            <h3>Staff &amp; payroll</h3>
+            <p>4-digit quick PIN logins, shift attendance, monthly payroll calculation, and payslip generation.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 4 · Offline Resilience & Data Integrity -->
+  <section class="hairline-top">
+    <div class="wrap">
+      <div class="split">
+        <div class="col-5 stack-lg">
+          <p class="eyebrow">Offline resilience</p>
+          <h2>The till never stops billing.</h2>
+          <p class="muted">When internet drops, table billing, KOT rounds, and printer queues keep running locally on the device. Orders queue in an outbox and synchronize automatically once connection returns.</p>
+          <p><a class="link-arrow" href="/pos/#offline">How the sync protocol works</a></p>
+        </div>
+        <div class="col-7 pad-top">
+          <ul class="grid-facts">
+            <li><span class="k">Nothing settles twice</span><span class="v">Every mutation carries a device-generated id, applied exactly once by the server.</span></li>
+            <li><span class="k">Tenders never netted</span><span class="v">Cash, card, and delivery portals keep their individual line directly to the audit report.</span></li>
+            <li><span class="k">One business day</span><span class="v">Venues closing past midnight get one consolidated drawer and close, never split across two days.</span></li>
+            <li><span class="k">Driverless thermal printing</span><span class="v">Direct raw TCP communication to port 9100 without OS drivers or print spooler crashes.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · Close CTA -->
   <section class="dark">
     <div class="wrap split" style="align-items:center">
       <div class="col-7 stack">
@@ -306,10 +393,9 @@
       <div>
         <h5>Product</h5>
         <ul>
-          <li><a href="/owner-app/">Owner App</a></li>
+          <li><a href="/forkstack-ai/">ForkStack AI</a></li>
           <li><a href="/erp/">ERP</a></li>
           <li><a href="/pos/">POS</a></li>
-          <li><a href="/pricing/">Pricing</a></li>
           <li><a href="/download/">Download</a></li>
         </ul>
       </div>
@@ -324,24 +410,22 @@
       <div>
         <h5>Support</h5>
         <ul>
-          <li><a href="/download/#requirements">System requirements</a></li>
-          <li><a href="/download/#install">Install notes</a></li>
           <li><a href="/contact/">Get help</a></li>
         </ul>
       </div>
       <div>
-        <a class="brand" href="/"><img src="/assets/brand/logo.svg" alt="ForkStack" width="139" height="32"></a>
+        <a class="brand" href="/"><img class="logo-on-paper" src="/assets/brand/logo.svg" alt="ForkStack" width="139" height="32"><img class="logo-on-dark" src="/assets/brand/logo-dark.svg" alt="" aria-hidden="true" width="139" height="32"></a>
         <p class="small block">AI software for restaurants. The assistant, the till and the back office on one system.</p>
         <p class="mono small" style="margin-top:8px">Suite 1.3.2</p>
       </div>
     </div>
     <div class="footer-bottom">
       <span>© 2026 ForkStack</span>
-      <span class="mono">AED · United Arab Emirates</span>
+      <span class="mono">United Arab Emirates</span>
     </div>
   </div>
 </footer>
 
-<script src="/site.js" defer></script>
+<script src="/site.js?v=20261101i" defer></script>
 </body>
 </html>

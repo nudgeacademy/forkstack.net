@@ -24,6 +24,28 @@
     window.addEventListener('resize', onScroll);
   }
 
+  // Theme switch. Light is the default; the choice is remembered in this
+  // browser only. The <head> applies a saved choice before first paint.
+  var themeBtn = document.querySelector('.theme-toggle');
+  var themeMeta = document.querySelector('meta[name="theme-color"]');
+  var applyTheme = function (dark) {
+    if (dark) document.documentElement.setAttribute('data-theme', 'dark');
+    else document.documentElement.removeAttribute('data-theme');
+    if (themeMeta) themeMeta.setAttribute('content', dark ? '#0C0C0B' : '#FAF8F5');
+    if (themeBtn) {
+      themeBtn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+      themeBtn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+    }
+  };
+  applyTheme(document.documentElement.getAttribute('data-theme') === 'dark');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function () {
+      var dark = document.documentElement.getAttribute('data-theme') !== 'dark';
+      applyTheme(dark);
+      try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) { /* private mode: not remembered */ }
+    });
+  }
+
   // Product dropdown in the desktop nav.
   var group = document.querySelector('.nav-group');
   if (group) {
@@ -57,21 +79,6 @@
       document.body.style.overflow = open ? '' : 'hidden';
     });
   }
-
-  // Underline tabs (owner app page).
-  document.querySelectorAll('[data-tabs]').forEach(function (root) {
-    var buttons = root.querySelectorAll('[role="tab"]');
-    buttons.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        buttons.forEach(function (b) {
-          var on = b === btn;
-          b.setAttribute('aria-selected', on ? 'true' : 'false');
-          var panel = document.getElementById(b.getAttribute('aria-controls'));
-          if (panel) panel.hidden = !on;
-        });
-      });
-    });
-  });
 
   // Hero shot — the one animated element on the site. --p runs 0 to 1 as the
   // block travels up through the viewport; CSS turns that into a scale on the
@@ -127,5 +134,121 @@
       });
     }, { rootMargin: '-20% 0px -65% 0px' });
     steps.forEach(function (s) { observer.observe(s); });
+  }
+
+  /* ---------- Page motion ----------
+   * All of it is safe to lose and all of it is off with reduced motion:
+   *  - the home hero's load sequence;
+   *  - a short fade as each block first comes on screen;
+   *  - a section rail and a scroll meter on long pages. */
+  var hero = document.querySelector('[data-hero]');
+
+  // Scroll meter: a mint line under the header for the whole page.
+  var meter = document.createElement('div');
+  meter.className = 'scroll-meter';
+  meter.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(meter);
+
+  // Section rail, built from each section's eyebrow.
+  var railSections = [];
+  document.querySelectorAll('main > section:not(.hero)').forEach(function (s) {
+    var eb = s.querySelector('.eyebrow');
+    var label = eb ? eb.textContent.trim() : '';
+    if (label && label.length < 32) railSections.push({ el: s, label: label });
+  });
+  var rail = null, railButtons = [];
+  if (railSections.length >= 3) {
+    rail = document.createElement('nav');
+    rail.className = 'page-rail';
+    rail.setAttribute('aria-label', 'Sections on this page');
+    railSections.forEach(function (r) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = r.label;
+      b.addEventListener('click', function () { r.el.scrollIntoView({ behavior: calm ? 'auto' : 'smooth' }); });
+      rail.appendChild(b);
+      railButtons.push(b);
+    });
+    document.body.appendChild(rail);
+  }
+
+  var tickScroll = function () {
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    meter.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, window.scrollY / max) : 0).toFixed(4) + ')';
+    if (rail) {
+      var mid = window.innerHeight * 0.4, active = -1;
+      railSections.forEach(function (r, i) { if (r.el.getBoundingClientRect().top <= mid) active = i; });
+      rail.classList.toggle('is-on', active >= 0);
+      railButtons.forEach(function (b, i) { b.setAttribute('aria-current', i === active ? 'true' : 'false'); });
+    }
+  };
+  tickScroll();
+  window.addEventListener('scroll', tickScroll, { passive: true });
+  window.addEventListener('resize', tickScroll);
+
+  if (calm) return;
+
+  // Home hero: arm the load sequence, then release it on the next frame so the
+  // transitions run.
+  if (hero) {
+    hero.classList.add('hero-armed');
+    var release = function () { requestAnimationFrame(function () { requestAnimationFrame(function () { hero.classList.add('is-ready'); }); }); };
+    var first = hero.querySelector('.hero-desk img');
+    if (first && !first.complete) {
+      first.addEventListener('load', release, { once: true });
+      first.addEventListener('error', release, { once: true });
+      setTimeout(release, 900);
+    } else {
+      release();
+    }
+  }
+
+  // Arrivals. Only marked once this script runs, so without it every block is
+  // simply there.
+  if ('IntersectionObserver' in window) {
+    var targets = [
+      '.section-head', '.split > *', '.narrow > *', '.wrap > h1', '.wrap > h2', '.wrap > p',
+      '.stat-row > div', '.plat-bar', '.showcase-card', '.feat-item', '.grid-facts > li',
+      '.row-4 > *', '.row-3 > *', '.row-2 > *', '.card', '.shot', '.table-scroll', '.deflist > div',
+      '.accordion details', '.demo-body .step', '.app-tab', '.prose > *', '.diagram', '.stage-brochure',
+      '.hero-shot', '.btn-row', '.phone-pair', '.window-grid > figure', '.device-figure'
+    ];
+    var seen = [];
+    document.querySelectorAll(targets.map(function (t) { return 'main ' + t; }).join(', ') + ', .site-footer .cols > div').forEach(function (el) {
+      if (hero && hero.contains(el)) return;
+      for (var p = el.parentElement; p; p = p.parentElement) if (p.classList.contains('reveal')) return;
+      el.classList.add('reveal');
+      var i = 0;
+      for (var s = el.previousElementSibling; s && i < 4; s = s.previousElementSibling) if (s.classList.contains('reveal')) i++;
+      el.style.setProperty('--d', (i * 60) + 'ms');
+      seen.push(el);
+    });
+
+    // Figures count up from zero the first time they arrive.
+    var countUp = function (el) {
+      var m = el.textContent.match(/^(\D*)(\d+)(\D*)$/);
+      if (!m) return;
+      var to = +m[2], t0 = performance.now();
+      var step = function (t) {
+        var k = Math.min(1, (t - t0) / 1100);
+        el.textContent = m[1] + Math.round(to * (1 - Math.pow(1 - k, 3))) + m[3];
+        if (k < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var el = e.target;
+        el.classList.add('is-in');
+        el.querySelectorAll('.figure').forEach(countUp);
+        // Once it has arrived, hand the block back to its own hover styles.
+        setTimeout(function () { el.classList.remove('reveal', 'is-in'); el.style.removeProperty('--d'); }, 700 + (parseInt(el.style.getPropertyValue('--d'), 10) || 0));
+        io.unobserve(el);
+      });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.06 });
+    seen.forEach(function (el) { io.observe(el); });
+    document.documentElement.classList.add('motion');
   }
 })();

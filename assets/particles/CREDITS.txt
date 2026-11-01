@@ -1,0 +1,15 @@
+Point clouds for the home page film, baked by scripts/website/particles/bake.py.
+Only sampled points ship here; the source models are not redistributed.
+
+Props: Poly Haven (https://polyhaven.com), CC0 1.0
+  round_wooden_table_01, dining_chair_02, brass_pot_01, carved_wooden_plate,
+  brass_goblets, food_lime_01, wooden_bowl_01, electric_stove, pot_enamel_01,
+  brass_pan_01, wooden_cutting_board, yellow_onion, metal_jug,
+  industrial_storage_cart, CashRegister_01, drawer_cabinet, bar_chair_round_01,
+  classic_laptop, steel_frame_shelves_01, cement_bag, wooden_crate_01,
+  cardboard_box_01, wicker_basket_01, plastic_crate_01, russian_food_cans_01,
+  ArmChair_01, side_table_01, tea_set_01, potted_plant_04
+
+People: Universal Base Characters [Standard] by Quaternius
+  (https://quaternius.com/packs/universalbasecharacters.html), CC0 1.0.
+  Posed and dressed (outfit colours, apron, chef's hat) by bake.py.
