@@ -1237,8 +1237,12 @@ td.num, th.num { text-align: right; font-family: var(--mono); font-weight: 500; 
   .stage-brochure {
     padding: 16px 12px;
   }
-  .showcase-media { height: 300px; }
-  .showcase-media .laptop-mockup { max-width: 100%; }
+  /* The frame grows to fit its device instead of a fixed height the tablet
+     and phone are taller than. */
+  .showcase-media { height: auto; padding: 28px 16px; }
+  .showcase-media .laptop-mockup { width: 100%; max-width: 100%; }
+  .showcase-media .tablet-mockup { width: 64%; max-width: 230px; }
+  .showcase-media .phone-mockup { width: 44%; max-width: 160px; }
   .front-devices {
     margin-top: 24px;
     flex-direction: column;
@@ -1591,6 +1595,11 @@ main { overflow-x: clip; }
   .hero h1 { font-size: clamp(40px, 12vw, 56px); }
   .hero .lead { font-size: 17px; }
   .hero-stage { margin-top: 44px; padding: 0 16px; }
+  /* Phones: a bigger laptop (80%, sides at 10% and 90%) with the tablet and
+     phone each overlapping it by the same 10%. */
+  .hero-desk .laptop-mockup { width: 80%; }
+  .hero-tablet { left: 0; width: 20%; }
+  .hero-phone { right: 6%; width: 14%; }
   .hero-feed { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 28px; }
   .hero-toast { padding: 8px 10px 8px 8px; gap: 8px; white-space: normal; }
   .hero-toast .ic { width: 24px; height: 24px; }
