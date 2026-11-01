@@ -100,7 +100,12 @@
     align-items:start;
   }
   @media (max-width:980px){
-    .layout{grid-template-columns:1fr;}
+    .layout{grid-template-columns:minmax(0,1fr);}
+  }
+  @media (max-width:520px){
+    .layout{padding:12px;}
+    .field-row,.est-parties{grid-template-columns:minmax(0,1fr);}
+    .form-col .item-row,.form-col .item-header{grid-template-columns:minmax(0,1fr) 44px 72px 72px 26px;gap:6px;}
   }
 
   .panel{

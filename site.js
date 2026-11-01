@@ -80,33 +80,7 @@
     });
   }
 
-  // Hero shot — the one animated element on the site. --p runs 0 to 1 as the
-  // block travels up through the viewport; CSS turns that into a scale on the
-  // frame and a rise on the caption. Left at 1 when the reader prefers less
-  // motion, or when this file never runs.
-  var shot = document.querySelector('[data-hero-shot]');
   var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (shot && !calm) {
-    var queued = false;
-    var measure = function () {
-      queued = false;
-      var vh = window.innerHeight || document.documentElement.clientHeight;
-      var top = shot.getBoundingClientRect().top;
-      // 0 while the block's top is still low in the viewport, 1 once it has
-      // risen past the header. Tuned so the whole move plays inside the first
-      // ~300px of scroll rather than being half over at load.
-      var p = (vh * 0.72 - top) / (vh * 0.62);
-      shot.style.setProperty('--p', Math.max(0, Math.min(1, p)).toFixed(4));
-    };
-    var onMove = function () {
-      if (queued) return;
-      queued = true;
-      window.requestAnimationFrame(measure);
-    };
-    measure();
-    window.addEventListener('scroll', onMove, { passive: true });
-    window.addEventListener('resize', onMove);
-  }
 
   // Demo walkthrough: mark the step the reader is actually looking at.
   var steps = document.querySelectorAll('.demo-body .step');
@@ -135,6 +109,19 @@
     }, { rootMargin: '-20% 0px -65% 0px' });
     steps.forEach(function (s) { observer.observe(s); });
   }
+
+  // Wide tables stack into one block per row on a phone; each cell carries
+  // its column name for the CSS to print beside the value.
+  document.querySelectorAll('main table').forEach(function (t) {
+    var heads = t.querySelectorAll('thead th');
+    if (heads.length < 3) return;
+    t.classList.add('stack-sm');
+    t.querySelectorAll('tbody tr').forEach(function (tr) {
+      Array.prototype.forEach.call(tr.children, function (td, i) {
+        if (heads[i]) td.setAttribute('data-label', heads[i].textContent.trim());
+      });
+    });
+  });
 
   /* ---------- Page motion ----------
    * All of it is safe to lose and all of it is off with reduced motion:
@@ -203,18 +190,15 @@
     }
   }
 
-  // Arrivals. Only marked once this script runs, so without it every block is
-  // simply there.
+  // Arrivals, for product screens only. Only marked once this script runs,
+  // so without it every block is simply there.
   if ('IntersectionObserver' in window) {
     var targets = [
-      '.section-head', '.split > *', '.narrow > *', '.wrap > h1', '.wrap > h2', '.wrap > p',
-      '.stat-row > div', '.plat-bar', '.showcase-card', '.feat-item', '.grid-facts > li',
-      '.row-4 > *', '.row-3 > *', '.row-2 > *', '.card', '.shot', '.table-scroll', '.deflist > div',
-      '.accordion details', '.demo-body .step', '.app-tab', '.prose > *', '.diagram', '.stage-brochure',
-      '.hero-shot', '.btn-row', '.phone-pair', '.window-grid > figure', '.device-figure'
+      '.showcase-card', '.laptop-mockup', '.window-grid > figure', '.phone-pair', '.phone-row',
+      '.app-tab', '.device-figure', '.shot', '.diagram'
     ];
     var seen = [];
-    document.querySelectorAll(targets.map(function (t) { return 'main ' + t; }).join(', ') + ', .site-footer .cols > div').forEach(function (el) {
+    document.querySelectorAll(targets.map(function (t) { return 'main ' + t; }).join(', ')).forEach(function (el) {
       if (hero && hero.contains(el)) return;
       for (var p = el.parentElement; p; p = p.parentElement) if (p.classList.contains('reveal')) return;
       el.classList.add('reveal');
@@ -236,13 +220,20 @@
       };
       requestAnimationFrame(step);
     };
+    var counter = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        countUp(e.target);
+        counter.unobserve(e.target);
+      });
+    }, { threshold: 0.6 });
+    document.querySelectorAll('main .stat-row .figure').forEach(function (el) { counter.observe(el); });
 
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
         var el = e.target;
         el.classList.add('is-in');
-        el.querySelectorAll('.figure').forEach(countUp);
         // Once it has arrived, hand the block back to its own hover styles.
         setTimeout(function () { el.classList.remove('reveal', 'is-in'); el.style.removeProperty('--d'); }, 700 + (parseInt(el.style.getPropertyValue('--d'), 10) || 0));
         io.unobserve(el);

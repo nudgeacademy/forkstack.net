@@ -369,7 +369,7 @@ td.num, th.num { text-align: right; font-family: var(--mono); font-weight: 500; 
 .factlist li { padding: 12px 0; border-bottom: 1px solid var(--hairline); }
 .dark .factlist, .dark .factlist li { border-color: var(--dark-border); }
 
-.grid-facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 var(--gutter); }
+.grid-facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 var(--gutter); margin: 0; padding: 0; }
 .grid-facts > li { list-style: none; padding: 14px 0; border-top: 1px solid var(--hairline); }
 .dark .grid-facts > li { border-color: var(--dark-border); }
 .grid-facts .k { display: block; font-family: var(--mono); font-weight: 500; font-size: 13.5px; color: var(--accent); }
@@ -1335,7 +1335,7 @@ main > section:not(.hero) h1 {
 .page-rail button[aria-current="true"]::after { width: 30px; background: var(--accent); }
 @media (max-width: 1280px) { .page-rail { display: none; } }
 
-/* Arrivals: a short, quiet fade as a block first comes on screen. */
+/* Arrivals: a short rise as a product screen first comes on screen. */
 .motion .reveal {
   opacity: 0; transform: translateY(12px);
   transition: opacity 500ms ease var(--d, 0ms), transform 600ms cubic-bezier(.2,.7,.2,1) var(--d, 0ms);
@@ -1674,7 +1674,7 @@ h1 em { font-style: italic; color: var(--accent); -webkit-text-fill-color: var(-
 }
 .dl-card h2 { font-size: 28px; }
 .dl-card > .muted { font-size: 14.5px; min-height: 3.2em; }
-.dl-list { list-style: none; margin: 10px 0 8px; padding: 0; display: grid; gap: 8px; }
+.dl-list { list-style: none; margin: 10px 0 8px; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
 .dl-row {
   display: flex; align-items: center; gap: 14px; height: 64px;
   padding: 0 16px; border-radius: 12px;
@@ -1696,4 +1696,51 @@ a.dl-row:hover { border-color: rgba(var(--accent-rgb),0.55); background: var(--a
 .dl-soon { flex: none; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-tertiary); }
 .dl-card .link-arrow { margin-top: auto; padding-top: 14px; }
 .dl-note { margin-top: 28px; text-align: center; max-width: none; }
-@media (max-width: 1000px) { .dl-grid { grid-template-columns: 1fr; max-width: 560px; margin: 0 auto; } }
+.dl-card { min-width: 0; }
+@media (max-width: 1000px) { .dl-grid { grid-template-columns: minmax(0, 1fr); max-width: 560px; margin: 0 auto; } }
+
+/* ---------- Phones ----------
+   Fixes that only matter on a narrow screen: nothing here changes the
+   desktop layout. */
+.btn-row-end { justify-content: flex-end; }
+@media (max-width: 760px) {
+  .btn-row-end { justify-content: flex-start; }
+
+  /* Stats sit two to a row instead of one tall column each. */
+  .stat-row { grid-template-columns: repeat(2, 1fr); }
+  .stat-row > div, .stat-row > div + div { padding: 16px 0 16px 16px; border-left: 1px solid var(--hairline); border-top: none; }
+  .stat-row > div:nth-child(odd) { padding-left: 0; border-left: none; }
+  .stat-row > div:nth-child(n+3) { border-top: 1px solid var(--hairline); }
+  .stat-row .figure { font-size: 24px; }
+
+  /* Card footers: platforms on one line, the link under them. */
+  .showcase-card .card-footer { flex-wrap: wrap; gap: 8px 16px; }
+
+  /* Download rows: a little tighter so long names keep their room. */
+  .dl-card { padding: 20px 16px; }
+  .dl-row { gap: 12px; padding: 0 12px; }
+  .dl-name small { white-space: normal; }
+
+  /* Tables with three or more columns become one block per row, each value
+     under its column name (site.js copies the names onto the cells). */
+  .table-scroll:has(table.stack-sm) { overflow: visible; }
+  table.stack-sm thead { display: none; }
+  table.stack-sm tbody tr { display: block; padding: 14px 16px; border-bottom: 1px solid var(--hairline); }
+  table.stack-sm tbody tr:last-child { border-bottom: none; }
+  table.stack-sm tbody td { display: grid; grid-template-columns: 38% 1fr; gap: 12px; padding: 5px 0; border: none; text-align: left; }
+  table.stack-sm tbody td:first-child { display: block; font-weight: 600; padding-bottom: 8px; }
+  table.stack-sm tbody td:not(:first-child)::before {
+    content: attr(data-label);
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-tertiary); padding-top: 3px;
+  }
+  .dark table.stack-sm tbody tr { border-color: var(--dark-border); }
+
+  /* Demo steps: one row of numbers that scrolls sideways, not seven ragged rows. */
+  .demo-steps { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none; }
+  .demo-steps::-webkit-scrollbar { display: none; }
+  .demo-steps ol { display: contents; }
+
+  /* Footer: the brand block first and full width, then the link columns. */
+  .site-footer .cols > div:last-child { grid-column: 1 / -1; order: -1; }
+}
